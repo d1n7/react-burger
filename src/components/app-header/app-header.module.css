@@ -1,0 +1,57 @@
+a {
+    text-decoration: none;
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    margin-right: 20px;
+}
+
+.construct {
+    display: flex;
+    margin-right: 4px;
+}
+
+.construct a {
+    color: #F2F2F3;
+}
+
+.lenta {
+    display: flex;
+    margin-left: 4px;
+}
+
+.lenta a {
+    color: #8585AD;
+}
+
+.icon {
+    padding-left: 20px;
+    padding-right: 8px;
+}
+
+.navbar {
+    background-color: #1C1C21;
+    height: 88px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 320px;
+    padding-right: 320px;
+}
+
+.navbarLeft {
+    flex-wrap: nowrap;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.cabinet {
+    display: flex;
+}
+
+.cabinet a {
+    color: #8585AD;
+    margin-right: 20px;
+}

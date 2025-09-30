@@ -1,0 +1,67 @@
+.sec {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: auto;
+    background-color: #131316;
+}
+
+.razdel {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    line-height: 30px;
+    padding-top: 40px;
+    padding-bottom: 24px;
+}
+
+.scrolldiv {
+    height: 900px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: 0;
+    color: #F2F2F3;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.bulki {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 272px 272px;
+    row-gap: 32px;
+    column-gap: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.photo{
+    width: 240px;
+    height: 120px;
+}
+
+.price {
+    font-family: 'Iceland', Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.price img {
+    padding-left: 8px;
+}
+
+.product-name {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}

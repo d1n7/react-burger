@@ -1,0 +1,9 @@
+.panel {
+    display: grid;
+    grid-template-columns: 600px 600px;
+    column-gap: 40px;
+    justify-items: center;
+    align-items: flex-end;
+    padding-left: 100px;
+    justify-content: center;
+}

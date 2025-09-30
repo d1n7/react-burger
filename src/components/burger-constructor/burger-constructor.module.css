@@ -1,0 +1,132 @@
+.lenta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 568px;
+}
+
+.summary {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    width: 568px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.scrolldiv {
+    height: 50%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    scrollbar-width: thin;
+}
+
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.brow {
+    composes: row;
+    padding-top: 16px;
+}
+
+
+.trow {
+    composes: row;
+    padding-bottom: 16px;
+}
+
+
+.points {
+    height: 24px;
+    width: 24px;
+    padding-right: 8px;
+}
+
+.name {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    width: 100%;
+}
+
+.price {
+    font-family: 'Iceland', Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 12px;
+    padding-left: 20px;
+    padding-bottom: 12px;
+}
+
+.one {
+    font-family: 'Iceland', Arial, Helvetica, sans-serif;
+    font-size: 48px;
+    line-height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 12px;
+    padding-left: 20px;
+    padding-bottom: 12px;
+}
+
+.one img {
+    padding-left: 8px;
+    width: 36px;
+    height: 36px;
+}
+
+.price img {
+    padding-left: 8px;
+    padding-right: 32px;
+}
+
+.ingredient {
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    background-color: #1C1C21;
+    border-radius: 40px 40px 40px 40px;
+    align-items: center;
+    width: 536px;
+}
+
+.itop {
+    composes: ingredient;
+    border-radius: 88px 88px 40px 40px;
+}
+
+.ibottom {
+    composes: ingredient;
+    border-radius: 40px 40px 88px 88px;
+}
+
+.lock {
+    width: 20px;
+    height: 22px;
+    padding-left: 20px;
+    padding-right: 32px;
+}
+
+.iimage {
+    width: 80px;
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 20px;
+}
+
+.sec {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background-color: #131316;
+    height: 100%;
+    padding-top: 100px;
+}
