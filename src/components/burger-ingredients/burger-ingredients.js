@@ -39,7 +39,7 @@ let BurgerIngredients = (props) => {
             <div className={styles.bulki}>
                 {props.data && props.data
                     .filter(i => i.type === "sauce")
-                    .map((item, index) => <div key={item._id} className={styles.column}>
+                    .map((item) => <div key={item._id} className={styles.column}>
                             <img alt={item.name} src={item.image}/>
                             <div className={styles.price}>{item.price} <CurrencyIcon type="primary" className="p-2"/></div>
                             <div className={styles['product-name']}>{item.name}</div>
