@@ -1,0 +1,15 @@
+.price {
+    font-family: 'Iceland', Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.product-name {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}

@@ -1,8 +1,13 @@
 .lenta {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    width: 568px;
+    row-gap: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y;
+    scroll-snap-align: start;
+    scrollbar-width: thin;
+
 }
 
 .summary {
@@ -28,13 +33,19 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 568px;
+    margin-left: 16px;
+}
+
+.toprow {
+    composes: row;
+    padding-bottom: 16px;
 }
 
 .brow {
     composes: row;
     padding-top: 16px;
 }
-
 
 .trow {
     composes: row;
@@ -125,8 +136,24 @@
 .sec {
     display: flex;
     flex-direction: column;
-    margin: auto;
     background-color: #131316;
-    height: 100%;
-    padding-top: 100px;
+    margin-top: 100px;
+    height: calc(100vh - 340px);
+
+}
+
+.scrollable {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px 0;
+}
+
+.scroll:not(:first-child):not(:last-child) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y;
+    scroll-snap-align: start;
+    scrollbar-width: thin;
 }

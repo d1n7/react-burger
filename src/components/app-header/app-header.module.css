@@ -34,10 +34,17 @@ a {
     background-color: #1C1C21;
     height: 88px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 40px 0 40px;
+    min-width: 1280px;
+}
+
+.menu {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 320px;
-    padding-right: 320px;
+    width: 1280px;
 }
 
 .navbarLeft {
@@ -45,13 +52,15 @@ a {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 426px;
 }
 
 .cabinet {
+    width: 426px;
     display: flex;
+    justify-content: flex-end;
 }
 
 .cabinet a {
     color: #8585AD;
-    margin-right: 20px;
 }

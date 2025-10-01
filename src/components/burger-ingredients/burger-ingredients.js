@@ -1,62 +1,29 @@
 import React from "react";
 import styles from "./burger-ingredients.module.css";
-import {CurrencyIcon, Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
+import IngredientTypeList from "../ingredient-type-list/ingredient-type-list";
 
-
-let BurgerIngredients = (props) => {
+const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState('bun')
 
     return (<section className={styles.sec}>
         <div className={styles.title}>Соберите бургер</div>
-
-            <div style={{display: 'flex'}}>
-                <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
-                    Булки
-                </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
-                    Соусы
-                </Tab>
-                <Tab value="main" active={current === 'main'} onClick={setCurrent}>
-                    Начинки
-                </Tab>
-            </div>
+        <div className={styles.tabs}>
+            <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+                Булки
+            </Tab>
+            <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+                Соусы
+            </Tab>
+            <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+                Начинки
+            </Tab>
+        </div>
         <div className={styles.scrolldiv}>
-            <div className={styles.razdel}>Булки</div>
-            <div className={styles.bulki}>
-                {props.data && props.data
-                    .filter(i => i.type === "bun")
-                    .map((item) => {
-                        return <div key={item._id} className={styles.column}>
-                            <img alt={item.name} src={item.image}/>
-                            <div className={styles.price}>{item.price} <CurrencyIcon type="primary" className="p-2"/>
-                            </div>
-                            <div className={styles['product-name']}>{item.name}</div>
-                        </div>
-                    })}
-            </div>
-            <div className={styles.razdel}>Соусы</div>
-            <div className={styles.bulki}>
-                {props.data && props.data
-                    .filter(i => i.type === "sauce")
-                    .map((item) => <div key={item._id} className={styles.column}>
-                            <img alt={item.name} src={item.image}/>
-                            <div className={styles.price}>{item.price} <CurrencyIcon type="primary" className="p-2"/></div>
-                            <div className={styles['product-name']}>{item.name}</div>
-                        </div>
-                    )}
-            </div>
-            <div className={styles.razdel}>Начинки</div>
-            <div className={styles.bulki}>
-                {props.data && props.data
-                    .filter(i => i.type === "main")
-                    .map((item) => <div key={item._id} className={styles.column}>
-                            <img alt={item.name} src={item.image}/>
-                            <div className={styles.price}>{item.price} <CurrencyIcon type="primary" className="p-2"/></div>
-                            <div className={styles['product-name']}>{item.name}</div>
-                        </div>
-                    )}
-            </div>
+            <IngredientTypeList items={props.data} type={"bun"} name={"Булки"}/>
+            <IngredientTypeList items={props.data} type={"sauce"} name={"Соусы"}/>
+            <IngredientTypeList items={props.data} type={"main"} name={"Начинки"}/>
         </div>
 
     </section>)

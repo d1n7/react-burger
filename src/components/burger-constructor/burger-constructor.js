@@ -1,11 +1,9 @@
 import React from "react";
 import styles from "./burger-constructor.module.css";
-import lock from "../../images/lock.svg";
 import diamond from "../../images/diamond.svg";
 import PropTypes from "prop-types";
 import points from "../../images/points.svg";
-import mull from "../../images/mull.svg";
-import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const BurgerConstructor = (props) => {
 
@@ -14,63 +12,61 @@ const BurgerConstructor = (props) => {
     const sauces = props.data.filter(item => item.type === 'sauce');
 
 
-    const bunTop = buns[Math.floor(Math.random() * buns.length)];
-    const bunBottom = buns[Math.floor(Math.random() * buns.length)];
+    const bun = buns[Math.floor(Math.random() * buns.length)];
 
     let main = []
     let sauce = []
-
 
     for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
         main = [...main, sauces[Math.floor(Math.random() * sauces.length)]];
         sauce = [...sauce, mains[Math.floor(Math.random() * mains.length)]];
     }
 
+    const ingredients = [bun, ...sauce, ...main, bun]
+    const sum = ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0)
 
-    let ingredients = [...sauce, ...main]
 
+    // {(index === 0) && <div className={styles.scroll}></div>}
+    // {(index === 0) && <div></div>}
 
-    console.log(bunTop)
     return (<section className={styles.sec}>
-
-        {bunTop && <div className={styles.trow}>
-            <div className={styles.points}></div>
-            <div className={styles.itop}>
-                <img className={styles.iimage} alt="top" src={bunTop.image}/>
-                <span className={styles.name}>{bunTop.name} (верх)</span>
-                <div className={styles.price}>{bunTop.price} <img alt={"diamond"} src={diamond}/></div>
-                <img className={styles.lock} alt={"lock"} src={lock}/>
-            </div>
+        {ingredients && <div key={ingredients[0].id} className={styles.toprow}>
+            <div className={styles.points}/>
+            <ConstructorElement
+                type={'top'}
+                isLocked={true}
+                text={ingredients[0].name}
+                price={ingredients[0].price}
+                thumbnail={ingredients[0].image}/>
         </div>}
-        <div className={ingredients && ingredients.length >= 6 && styles.scrolldiv}>
-            <div className={styles.lenta}>
-                {ingredients.map((item) => (
-                    <div className={styles.row}>
-                        <div className={styles.points}><img alt={"points"} src={points}/></div>
-                        <div className={styles.ingredient}>
-                            <img className={styles.iimage} alt="top" src={item.image}/>
-                            <span className={styles.name}>{item.name}</span>
-                            <div className={styles.price}>{item.price} <img alt={"diamond"} src={diamond}/></div>
-                            <img className={styles.lock} alt={"lock"} src={mull}/>
-                        </div>
+        <div className={styles.lenta}>
+
+            {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map(item => (
+                <div key={item.id} className={styles.row}>
+                    <div className={styles.points}>
+                        <img alt={"points"} src={points}/>
                     </div>
-                ))}
-            </div>
+                    <ConstructorElement
+                        text={item.name}
+                        price={item.price}
+                        thumbnail={item.image}
+                    />
+                </div>
+            ))}
+
         </div>
 
-        {bunBottom && <div className={styles.brow}>
-            <div className={styles.points}></div>
-            <div className={styles.ibottom}>
-                <img className={styles.iimage} alt="top" src={bunBottom.image}/>
-                <span className={styles.name}>{bunBottom.name} (низ)</span>
-                <div className={styles.price}>{bunBottom.price}<img alt={"diamond"} src={diamond}/></div>
-                <img className={styles.lock} alt={"lock"} src={lock}/>
-            </div>
-        </div>
-        }
-
+        {ingredients && <div key={ingredients[ingredients.length - 1].id} className={styles.brow}>
+            <div className={styles.points}/>
+            <ConstructorElement
+                type={'bottom'}
+                isLocked={true}
+                text={ingredients[ingredients.length - 1].name}
+                price={ingredients[ingredients.length - 1].price}
+                thumbnail={ingredients[ingredients.length - 1].image}/>
+        </div>}
         <div className={styles.summary}>
-            <div className={styles.one}>100 <img alt={"diamond"} src={diamond}/></div>
+            <div className={styles.one}>{sum} <img alt={"diamond"} src={diamond}/></div>
             <Button htmlType="button" type="primary" size="large">
                 Оформить заказ
             </Button>
