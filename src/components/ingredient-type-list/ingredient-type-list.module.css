@@ -1,0 +1,17 @@
+.bulki {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 272px 272px;
+    row-gap: 32px;
+    column-gap: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.razdel {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    line-height: 30px;
+    padding-top: 40px;
+    padding-bottom: 24px;
+}
