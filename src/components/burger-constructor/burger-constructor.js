@@ -1,16 +1,17 @@
 import React from "react";
 import styles from "./burger-constructor.module.css";
-import diamond from "../../images/diamond.svg";
 import PropTypes from "prop-types";
 import points from "../../images/points.svg";
-import {Button, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = (props) => {
+    const [modalVisible, setModalVisible] = React.useState(false);
 
     const buns = props.data.filter(item => item.type === 'bun');
     const mains = props.data.filter(item => item.type === 'main');
     const sauces = props.data.filter(item => item.type === 'sauce');
-
 
     const bun = buns[Math.floor(Math.random() * buns.length)];
 
@@ -25,12 +26,23 @@ const BurgerConstructor = (props) => {
     const ingredients = [bun, ...sauce, ...main, bun]
     const sum = ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0)
 
+    const openOrderModal = () => {
+        console.log("openOrderModal");
+        setModalVisible(true)
+    }
 
-    // {(index === 0) && <div className={styles.scroll}></div>}
-    // {(index === 0) && <div></div>}
+    const handleCloseModal = () => {
+        console.log("close modal");
+        setModalVisible(false)
+    }
+
+
+    const modalOrder = <Modal header="" onClose={handleCloseModal}>
+        <OrderDetails/>
+    </Modal>
 
     return (<section className={styles.sec}>
-        {ingredients && <div key={ingredients[0].id} className={styles.toprow}>
+        {ingredients && <div key={ingredients[0]._id + "t"} className={styles.toprow}>
             <div className={styles.points}/>
             <ConstructorElement
                 type={'top'}
@@ -40,9 +52,8 @@ const BurgerConstructor = (props) => {
                 thumbnail={ingredients[0].image}/>
         </div>}
         <div className={styles.lenta}>
-
             {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map(item => (
-                <div key={item.id} className={styles.row}>
+                <div key={item._id} className={styles.row}>
                     <div className={styles.points}>
                         <img alt={"points"} src={points}/>
                     </div>
@@ -56,7 +67,7 @@ const BurgerConstructor = (props) => {
 
         </div>
 
-        {ingredients && <div key={ingredients[ingredients.length - 1].id} className={styles.brow}>
+        {ingredients && <div key={ingredients[ingredients.length - 1]._id + "b"} className={styles.brow}>
             <div className={styles.points}/>
             <ConstructorElement
                 type={'bottom'}
@@ -66,10 +77,14 @@ const BurgerConstructor = (props) => {
                 thumbnail={ingredients[ingredients.length - 1].image}/>
         </div>}
         <div className={styles.summary}>
-            <div className={styles.one}>{sum} <img alt={"diamond"} src={diamond}/></div>
-            <Button htmlType="button" type="primary" size="large">
-                Оформить заказ
-            </Button>
+            <div className={styles.one}>{sum}<CurrencyIcon type="primary" className="p-2"/></div>
+            <div style={{overflow: 'hidden'}}>
+                <Button htmlType="button" type="primary" size="large" onClick={openOrderModal}>
+                    Оформить заказ
+                </Button>
+                {modalVisible && modalOrder}
+            </div>
+
         </div>
     </section>)
 }

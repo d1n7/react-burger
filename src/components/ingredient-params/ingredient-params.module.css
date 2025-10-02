@@ -1,0 +1,24 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 56px;
+}
+
+.name {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #8585AD;
+}
+
+.value {
+    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 24px;
+    text-align: center;
+    color: #8585AD;
+}

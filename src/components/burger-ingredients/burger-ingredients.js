@@ -4,7 +4,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import IngredientTypeList from "../ingredient-type-list/ingredient-type-list";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({data}) => {
     const [current, setCurrent] = React.useState('bun')
 
     return (<section className={styles.sec}>
@@ -21,9 +21,9 @@ const BurgerIngredients = (props) => {
             </Tab>
         </div>
         <div className={styles.scrolldiv}>
-            <IngredientTypeList items={props.data} type={"bun"} name={"Булки"}/>
-            <IngredientTypeList items={props.data} type={"sauce"} name={"Соусы"}/>
-            <IngredientTypeList items={props.data} type={"main"} name={"Начинки"}/>
+            <IngredientTypeList items={data} type={"bun"} name={"Булки"}/>
+            <IngredientTypeList items={data} type={"sauce"} name={"Соусы"}/>
+            <IngredientTypeList items={data} type={"main"} name={"Начинки"}/>
         </div>
 
     </section>)
