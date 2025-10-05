@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 
 const IngredientTypeList = ({items, type, name}) => {
     return <>
-        <div className={styles.razdel}>{name}</div>
-        <div className={styles.bulki}>
+        <div className="text_type_main-medium text pt-10 pb-6">{name}</div>
+        <div className={`${styles.bulki} pl-4 pr-4`}>
             {items.filter(i => i.type === type)
                 .map((item) => {
                     return <Ingredient key={item._id} ingredient={item}/>;

@@ -4,11 +4,13 @@ import done from '../../images/done.png'
 
 const OrderDetails = () => {
     return (<div className={styles.info}>
-        <div className={styles.orderNumber}>034536</div>
-        <div className={styles.identification}>идентификатор заказа</div>
-        <img alt={"иконка заказ создан"} src={done} className={styles.image}/>
-        <div className={styles.begin}>Ваш заказ начали готовить</div>
-        <div className={styles.ready}>Дождитесь готовности на орбитальной станции</div>
+        <div className="text text_type_digits-large">034536</div>
+        <div className="text text_type_main-medium">идентификатор заказа</div>
+        <img alt={"иконка заказ создан"} src={done} className={`${styles.image} pt-15 pb-15`}/>
+        <div className="text text_type_main-default">Ваш заказ начали готовить</div>
+        <div className="text text_type_main-default pb-30 pt-2 text_color_inactive">Дождитесь готовности на орбитальной
+            станции
+        </div>
     </div>)
 }
 

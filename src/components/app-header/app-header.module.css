@@ -1,33 +1,11 @@
-a {
-    text-decoration: none;
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
-    margin-right: 20px;
-}
-
 .construct {
     display: flex;
     margin-right: 4px;
 }
 
-.construct a {
-    color: #F2F2F3;
-}
-
 .lenta {
     display: flex;
     margin-left: 4px;
-}
-
-.lenta a {
-    color: #8585AD;
-}
-
-.icon {
-    padding-left: 20px;
-    padding-right: 8px;
 }
 
 .navbar {
@@ -59,8 +37,4 @@ a {
     width: 426px;
     display: flex;
     justify-content: flex-end;
-}
-
-.cabinet a {
-    color: #8585AD;
 }

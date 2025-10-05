@@ -6,15 +6,6 @@
     width: 560px;
 }
 
-.name {
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    line-height: 30px;
-    font-weight: 700;
-    padding-bottom: 32px;
-    padding-top: 16px;
-}
-
 .image {
     height: 240px;
     width: 480px;
@@ -26,5 +17,4 @@
     flex-direction: row;
     row-gap: 30px;
     justify-content: space-between;
-    padding-bottom: 60px;
 }

@@ -4,7 +4,6 @@
     width: 600px;
     background-color: #131316;
     justify-items: flex-start;
-    align-items: flex-start;
 }
 
 .scrolldiv {
@@ -21,39 +20,7 @@
     display: flex;
 }
 
-.title {
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: 36px;
-    letter-spacing: 0;
-    color: #F2F2F3;
-    padding-top: 40px;
-    padding-bottom: 20px;
-}
-
-
-
 .photo{
     width: 240px;
     height: 120px;
-}
-
-.price {
-    font-family: 'Iceland', Arial, Helvetica, sans-serif;
-    font-size: 28px;
-    line-height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 4px;
-    padding-bottom: 4px;
-}
-
-.price img {
-    padding-left: 8px;
-}
-
-.product-name {
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    font-size: 16px;
 }

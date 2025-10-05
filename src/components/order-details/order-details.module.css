@@ -7,44 +7,11 @@
 }
 
 .orderNumber {
-    font-family: 'Iceland', Arial, Helvetica, sans-serif;
-    font-weight: 400;
     width: 520px;
     height: 120px;
-    font-size: 144px;
-    line-height: 120px;
-    text-align: center;
-}
-
-.identification {
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 24px;
-    text-align: center;
-}
-
-.begin {
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-}
-
-.ready {
-    font-family: 'JetBrainsMono', Arial, Helvetica, sans-serif;
-    color: #8585AD;
-    padding-top: 8px;
-    padding-bottom: 120px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
 }
 
 .image {
     width: 120px;
     height: 120px;
-    padding-top: 60px;
-    padding-bottom: 60px;
 }

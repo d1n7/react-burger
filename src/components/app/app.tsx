@@ -4,23 +4,27 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import styles from "./app.module.css"
 
-const apiURL = "https://norma.nomoreparties.space/api/ingredients"
+const apiURL = "https://norma.nomoreparties.space/"
 
 // TODO: counter
 // TODO: ModalOverlay
 // TODO: Box paddings
+// TODO text swap
 
 function App() {
     const [ingredientsData, setIngredientsData] = useState([]);
 
+    const endpoint = "api/ingredients";
+
     useEffect(() => {
-        console.log("Ingredients loaded");
         const fetchData = async () => {
             try {
-                const response = await fetch(apiURL);
+                const address = new URL(endpoint, apiURL).href
+                const response = await fetch(address);
                 if (!response.ok) {
                     throw new Error("Could not fetch ingredients");
                 }
+
                 const resp = await response.json();
                 console.log(resp);
                 setIngredientsData(resp.data)

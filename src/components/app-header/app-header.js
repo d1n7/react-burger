@@ -7,15 +7,15 @@ const AppHeader = () => {
         <div className={styles.menu}>
             <div className={styles.navbarLeft}>
                 <div className={styles.construct}>
-                    <BurgerIcon className={styles.icon} type="primary"/><a href={"/"}>Конструктор</a>
+                    <BurgerIcon className="pl-5 pr-2" type="primary"/><p className="text text_type_main-default">Конструктор</p>
                 </div>
                 <div className={styles.lenta}>
-                    <ListIcon className={styles.icon} type="secondary"/><a href={"/"}>Лента заказов</a>
+                    <ListIcon className="pl-5 pr-2" type="secondary"/><p className="text text_type_main-default text_color_inactive">Лента заказов</p>
                 </div>
             </div>
-            <div><Logo/></div>
+            <div ><Logo/></div>
             <div className={styles.cabinet}>
-                <ProfileIcon className={styles.icon} type="secondary"/><a href={"/"}>Личный кабинет</a>
+                <ProfileIcon className="pl-5 pr-2" type="secondary"/><p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
             </div>
         </div>
 

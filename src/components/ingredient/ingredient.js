@@ -17,9 +17,9 @@ const Ingredient = ({ingredient}) => {
     return (<div style={{overflow: 'hidden'}}>
             <div onClick={() => setModalVisible(true)}>
                 <img alt={ingredient.name} src={ingredient.image}/>
-                <div className={styles.price}>{ingredient.price} <CurrencyIcon type="primary" className="p-2"/>
+                <div className={`${styles.price} text text_type_digits-default pt-1 pb-1`}>{ingredient.price} <CurrencyIcon type="primary" className="p-2"/>
                 </div>
-                <div className={styles['product-name']}>{ingredient.name}</div>
+                <div className="text text_type_main-default">{ingredient.name}</div>
             </div>
             {modalVisible && modalIngredient}
         </div>

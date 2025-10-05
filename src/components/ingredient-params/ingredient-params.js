@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 const IngredientParams = ({name, value}) => {
     return (
         <div className={styles.main}>
-            <div className={styles.name}>{name}</div>
-            <div className={styles.value}>{value}</div>
+            <div className="text text_type_main-default text_color_inactive">{name}</div>
+            <div className={`${styles.value} text text_type_main-default text_color_inactive`}>{value}</div>
         </div>
     )
 }

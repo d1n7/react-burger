@@ -6,8 +6,8 @@ import IngredientParams from "../ingredient-params/ingredient-params";
 const IngredientDetails = ({ingredient}) => {
     return (<div className={styles.main}>
         <img className={styles.image} alt={"фото " + ingredient.name} src={ingredient.image}/>
-        <div className={styles.name}>{ingredient.name}</div>
-        <div className={styles.params}>
+        <div className="text_type_main-medium pb-8 pt-2">{ingredient.name}</div>
+        <div className={`${styles.params} pb-15`}>
             <IngredientParams name={"Калории,ккал"} value={ingredient.calories}/>
             <IngredientParams name={"Белки, г"} value={ingredient.calories}/>
             <IngredientParams name={"Жиры, г"} value={ingredient.calories}/>

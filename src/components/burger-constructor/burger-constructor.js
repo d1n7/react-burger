@@ -42,8 +42,8 @@ const BurgerConstructor = (props) => {
     </Modal>
 
     return (<section className={styles.sec}>
-        {ingredients && <div key={ingredients[0]._id + "t"} className={styles.toprow}>
-            <div className={styles.points}/>
+        {ingredients && <div key={ingredients[0]._id + "t"} className={`${styles.row} pb-4`}>
+            <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'top'}
                 isLocked={true}
@@ -54,7 +54,7 @@ const BurgerConstructor = (props) => {
         <div className={styles.lenta}>
             {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map(item => (
                 <div key={item._id} className={styles.row}>
-                    <div className={styles.points}>
+                    <div className={`${styles.points} pl-2`}>
                         <img alt={"points"} src={points}/>
                     </div>
                     <ConstructorElement
@@ -67,8 +67,8 @@ const BurgerConstructor = (props) => {
 
         </div>
 
-        {ingredients && <div key={ingredients[ingredients.length - 1]._id + "b"} className={styles.brow}>
-            <div className={styles.points}/>
+        {ingredients && <div key={ingredients[ingredients.length - 1]._id + "b"} className={`${styles.row} pt-4`}>
+            <div className={`${styles.points} pl-2`}/>
             <ConstructorElement
                 type={'bottom'}
                 isLocked={true}
@@ -76,8 +76,8 @@ const BurgerConstructor = (props) => {
                 price={ingredients[ingredients.length - 1].price}
                 thumbnail={ingredients[ingredients.length - 1].image}/>
         </div>}
-        <div className={styles.summary}>
-            <div className={styles.one}>{sum}<CurrencyIcon type="primary" className="p-2"/></div>
+        <div className={`${styles.summary} pt-10`}>
+            <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{sum}<CurrencyIcon type="primary" className="p-2"/></div>
             <div style={{overflow: 'hidden'}}>
                 <Button htmlType="button" type="primary" size="large" onClick={openOrderModal}>
                     Оформить заказ

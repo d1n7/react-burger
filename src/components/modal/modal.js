@@ -9,7 +9,7 @@ const modalRoot = document.getElementById('react-modals');
 const Modal = ({children, header, onClose}) => {
     return createPortal(<div className={styles.main}>
             <div className={styles.top}>
-                <div className={styles.header}>{header}</div>
+                <div className={`${styles.header} text text_type_main-default`}>{header}</div>
                 <div className={styles.image}><CloseIcon className={styles.x} onClick={onClose} type="primary"/></div>
             </div>
             {children}
