@@ -8,28 +8,26 @@ const apiURL = "https://norma.nomoreparties.space/"
 
 // TODO: counter
 // TODO: ModalOverlay
-// TODO: Box paddings
-// TODO text swap
 
 function App() {
     const [ingredientsData, setIngredientsData] = useState([]);
 
-    const endpoint = "api/ingredients";
+    const endpoint = "api1/ingredients";
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const address = new URL(endpoint, apiURL).href
-                const response = await fetch(address);
+                const response = await fetch(address)
                 if (!response.ok) {
                     throw new Error("Could not fetch ingredients");
                 }
 
                 const resp = await response.json();
-                console.log(resp);
+
                 setIngredientsData(resp.data)
-            } catch (e) {
-                console.error(e);
+            } catch (error) {
+                console.error("err", error);
             }
         }
 

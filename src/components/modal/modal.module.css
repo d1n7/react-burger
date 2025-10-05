@@ -5,6 +5,11 @@
     align-items: center;
     flex-direction: column;
     background: #1C1C21;
+    top: 100px;
+    left: calc(50% - 400px);
+    width: 720px;
+    z-index: 1000;
+    position: fixed;
 }
 
 .top {

@@ -27,12 +27,10 @@ const BurgerConstructor = (props) => {
     const sum = ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0)
 
     const openOrderModal = () => {
-        console.log("openOrderModal");
         setModalVisible(true)
     }
 
     const handleCloseModal = () => {
-        console.log("close modal");
         setModalVisible(false)
     }
 

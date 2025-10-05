@@ -8,8 +8,6 @@ import PropTypes from "prop-types";
 const Ingredient = ({ingredient}) => {
     const [modalVisible, setModalVisible] = React.useState(false);
 
-    console.log(modalVisible);
-
     const modalIngredient = <Modal header={"Детали ингредиента"} onClose={() => setModalVisible(false)}>
         <IngredientDetails ingredient={ingredient}/>
     </Modal>;
