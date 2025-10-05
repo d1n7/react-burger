@@ -10,7 +10,6 @@ const modalRoot = document.getElementById('react-modals');
 const Modal = ({children, header, onClose}) => {
     return createPortal(<ModalOverlay onClose={onClose}>
             <div className={styles.main} onClick={(e) => {
-                console.log(e.currentTarget);
                 e.stopPropagation()
             }}>
                 <div className={styles.top}>

@@ -6,11 +6,9 @@ import styles from "./app.module.css"
 
 const apiURL = "https://norma.nomoreparties.space/"
 
-// TODO: counter
-// TODO: ModalOverlay
-
 function App() {
     const [ingredientsData, setIngredientsData] = useState([]);
+    const [err, setErr] = useState("");
 
     const endpoint = "api1/ingredients";
 
@@ -20,19 +18,24 @@ function App() {
                 const address = new URL(endpoint, apiURL).href
                 const response = await fetch(address)
                 if (!response.ok) {
-                    throw new Error("Could not fetch ingredients");
+                    setErr(`Данные по api не получены. Код ошибки:  ${response.status}`)
+                    return;
                 }
 
                 const resp = await response.json();
 
                 setIngredientsData(resp.data)
             } catch (error) {
-                console.error("err", error);
+                setErr(`Возникла ошибка:  ${error}`)
             }
         }
 
         fetchData();
     }, [])
+
+    if (err) {
+        throw new Error(err)
+    }
 
     return (
         <>

@@ -1,15 +1,18 @@
 import React from "react";
+import styles from "./error-inform.module.css";
 
 
 class ErrorInform extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { hasError: false };
+        this.state = {
+            hasError: false,
+            errDesc: ""
+        };
     }
 
     static getDerivedStateFromError(error) {
-        console.log("getDerivedStateFromError", error);
-        return { hasError: true };
+        return {hasError: true, errDesc: error.message};
     }
 
     componentDidCatch(error, info) {
@@ -18,11 +21,18 @@ class ErrorInform extends React.Component {
 
     render() {
         if (this.state.hasError) {
-            return (<div>
-                <p className="text text_color_inactive text_type_main-medium">Произошла ошибка</p>
-                <p>
-                    {this.state.errDesc}
-                </p></div>)
+            return (<div className={styles.main}>
+                <div className={styles.picture}>
+                    <p className="text text_type_digits-medium">Произошла ошибка</p>
+                    <p  className="text text_type_main-default text_color_inactive pt-5">
+                        {this.state.errDesc}
+                    </p>
+                    <p  className="text text_type_main-default text_color_inactive pt-5">
+                        Попробуйте перезагрузить страницу.
+                    </p>
+                </div>
+
+            </div>)
         }
 
         return (this.props.children)
