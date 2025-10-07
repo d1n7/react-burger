@@ -12,7 +12,7 @@ const Ingredient = ({ingredient}) => {
         <IngredientDetails ingredient={ingredient}/>
     </Modal>;
 
-    return (<div style={{overflow: 'hidden'}}>
+    return (<div className={styles.block}>
             <div onClick={() => setModalVisible(true)}>
                 <img alt={ingredient.name} src={ingredient.image}/>
                 <div className={`${styles.price} text text_type_digits-default pt-1 pb-1`}>{ingredient.price} <CurrencyIcon type="primary" className="p-2"/>

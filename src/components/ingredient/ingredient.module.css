@@ -3,3 +3,8 @@
     justify-content: center;
     align-items: center;
 }
+
+.block {
+    cursor: pointer;
+    overflow: hidden;
+}

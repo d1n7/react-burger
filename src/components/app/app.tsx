@@ -10,7 +10,7 @@ function App() {
     const [ingredientsData, setIngredientsData] = useState([]);
     const [err, setErr] = useState("");
 
-    const endpoint = "api1/ingredients";
+    const endpoint = "api/ingredients";
 
     useEffect(() => {
         const fetchData = async () => {

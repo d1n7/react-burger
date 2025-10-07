@@ -9,9 +9,9 @@ const IngredientDetails = ({ingredient}) => {
         <div className="text_type_main-medium pb-8 pt-2">{ingredient.name}</div>
         <div className={`${styles.params} pb-15`}>
             <IngredientParams name={"Калории,ккал"} value={ingredient.calories}/>
-            <IngredientParams name={"Белки, г"} value={ingredient.calories}/>
-            <IngredientParams name={"Жиры, г"} value={ingredient.calories}/>
-            <IngredientParams name={"Углеводы, г"} value={ingredient.calories}/>
+            <IngredientParams name={"Белки, г"} value={ingredient.proteins}/>
+            <IngredientParams name={"Жиры, г"} value={ingredient.fat}/>
+            <IngredientParams name={"Углеводы, г"} value={ingredient.carbohydrates}/>
         </div>
     </div>)
 }

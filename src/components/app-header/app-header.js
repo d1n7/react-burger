@@ -13,7 +13,7 @@ const AppHeader = () => {
                     <ListIcon className="pl-5 pr-2" type="secondary"/><p className="text text_type_main-default text_color_inactive">Лента заказов</p>
                 </div>
             </div>
-            <div ><Logo/></div>
+            <div className={styles.logo}><Logo/></div>
             <div className={styles.cabinet}>
                 <ProfileIcon className="pl-5 pr-2" type="secondary"/><p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
             </div>

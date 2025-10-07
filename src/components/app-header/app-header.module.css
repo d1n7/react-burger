@@ -1,11 +1,13 @@
 .construct {
     display: flex;
     margin-right: 4px;
+    cursor: pointer;
 }
 
 .lenta {
     display: flex;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 .navbar {
@@ -25,6 +27,10 @@
     width: 1280px;
 }
 
+.logo {
+    cursor: pointer;
+}
+
 .navbarLeft {
     flex-wrap: nowrap;
     display: flex;
@@ -34,6 +40,7 @@
 }
 
 .cabinet {
+    cursor: pointer;
     width: 426px;
     display: flex;
     justify-content: flex-end;

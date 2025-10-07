@@ -49,9 +49,9 @@ const BurgerConstructor = (props) => {
                 price={ingredients[0].price}
                 thumbnail={ingredients[0].image}/>
         </div>}
-        <div className={styles.lenta}>
-            {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map(item => (
-                <div key={item._id} className={styles.row}>
+        <div className={styles.lenta} key={"SecRetID"}>
+            {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map((item, index) => (
+                <div key={index} className={styles.row}>
                     <div className={`${styles.points} pl-2`}>
                         <img alt={"points"} src={points}/>
                     </div>
@@ -75,7 +75,8 @@ const BurgerConstructor = (props) => {
                 thumbnail={ingredients[ingredients.length - 1].image}/>
         </div>}
         <div className={`${styles.summary} pt-10`}>
-            <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{sum}<CurrencyIcon type="primary" className="p-2"/></div>
+            <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{sum}<CurrencyIcon
+                type="primary" className="p-2"/></div>
             <div style={{overflow: 'hidden'}}>
                 <Button htmlType="button" type="primary" size="large" onClick={openOrderModal}>
                     Оформить заказ
