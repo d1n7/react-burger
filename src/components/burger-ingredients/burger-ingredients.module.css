@@ -1,0 +1,26 @@
+.sec {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background-color: #131316;
+    justify-items: flex-start;
+}
+
+.scrolldiv {
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    scroll-snap-type: y;
+    scroll-snap-align: start;
+    scrollbar-width: thin;
+    height: calc(100vh - 340px);
+}
+
+.tabs {
+    display: flex;
+}
+
+.photo{
+    width: 240px;
+    height: 120px;
+}

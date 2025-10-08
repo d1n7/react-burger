@@ -1,0 +1,7 @@
+.bulki {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 272px 272px;
+    row-gap: 32px;
+    column-gap: 24px;
+}

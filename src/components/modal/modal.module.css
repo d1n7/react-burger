@@ -1,0 +1,41 @@
+.main {
+    border-radius: 40px 40px 40px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #1C1C21;
+    top: 50%;
+    left: 50%;
+    width: 720px;
+    z-index: 1000;
+    position: fixed;
+    transform: translate(-50%, -50%);
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 40px 40px 0 40px;
+}
+
+.header {
+    font-size: 40px;
+    width: 580px;
+    height: 80px;
+    align-items: center;
+    display: flex;
+}
+
+.x {
+    width: 24px;
+    height: 24px;
+}
+
+.image {
+    width: 60px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}
