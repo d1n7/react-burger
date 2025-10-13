@@ -1,33 +1,100 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import styles from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import IngredientTypeList from "../ingredient-type-list/ingredient-type-list";
+import Loading from "../../images/loading.svg";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_CURRENT_TAB} from "../../services/actions/ingredients";
+import ReactDOM from "react-dom/client";
 
-const BurgerIngredients = ({data}) => {
-    const [current, setCurrent] = React.useState('bun')
+const BurgerIngredients = () => {
+    const dispatch = useDispatch();
 
-    return (<section className={styles.sec}>
+    const setCurrent = name => {
+        dispatch({type: SET_CURRENT_TAB, currentTab: name})
+    }
+
+    const currentTab = useSelector(state => state.ingredients.currentTab);
+
+    const sectionRefs = useRef({});
+
+    useEffect(() => {
+        if (sectionRefs.current && sectionRefs.current[currentTab]) {
+            sectionRefs.current[currentTab].scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+    }, [currentTab])
+
+    const {ingredients, ingredientsRequest} = useSelector((state) => ({
+        ingredientsRequest: state.ingredients.ingredientsRequest,
+        ingredients: state.ingredients.ingredients
+    }));
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                console.log("entries", entries);
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        switch (entry.target) {
+                            case sectionRefs.current['bun']:
+                                dispatch({type: SET_CURRENT_TAB, currentTab: "bun"});
+                                break
+                            case sectionRefs.current['sauce']:
+                                dispatch({type: SET_CURRENT_TAB, currentTab: "sauce"});
+                                break
+                            case sectionRefs.current['main']:
+                                dispatch({type: SET_CURRENT_TAB, currentTab: "main"});
+                                break
+                        }
+                    }
+                });
+            },
+            {threshold: 0.5} // Adjust as needed
+        );
+
+        Object.values(sectionRefs.current).forEach((ref) => {
+            if (ref) observer.observe(ref);
+        });
+
+        return () => {
+            Object.values(sectionRefs.current).forEach((ref) => {
+                if (ref) observer.unobserve(ref);
+            });
+        };
+    }, [ingredients]);
+
+
+    return <section className={styles.sec}>
         <div className={`${styles.title} text_type_main-large text pt-10 pb-5`}>Соберите бургер</div>
         <div className={styles.tabs}>
-            <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+            <Tab value="bun" active={currentTab === 'bun'} onClick={setCurrent}>
                 Булки
             </Tab>
-            <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+            <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>
                 Соусы
             </Tab>
-            <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+            <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>
                 Начинки
             </Tab>
         </div>
-        <div className={styles.scrolldiv}>
-            <IngredientTypeList items={data} type={"bun"} name={"Булки"}/>
-            <IngredientTypeList items={data} type={"sauce"} name={"Соусы"}/>
-            <IngredientTypeList items={data} type={"main"} name={"Начинки"}/>
-        </div>
-
-    </section>)
+        {(ingredientsRequest || !ingredients || ingredients.length === 0) ?
+            <div className={styles.loadContainer}>
+                <img className={styles.loading} src={Loading} alt="Loading..."/>
+            </div>
+            :
+            <div className={styles.scrolldiv}>
+                <IngredientTypeList items={ingredients} type={"bun"} name={"Булки"}
+                                    ref={(el) => (sectionRefs.current['bun'] = el)}/>
+                <IngredientTypeList items={ingredients} type={"sauce"} name={"Соусы"}
+                                    ref={(el) => (sectionRefs.current['sauce'] = el)}/>
+                <IngredientTypeList items={ingredients} type={"main"} name={"Начинки"}
+                                    ref={(el) => (sectionRefs.current['main'] = el)}/>
+            </div>
+        }
+    </section>
 }
+
 
 BurgerIngredients.propTypes = {
     data: PropTypes.arrayOf(

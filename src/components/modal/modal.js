@@ -20,7 +20,7 @@ const Modal = ({children, header, onClose}) => {
         return () => {
             document.removeEventListener('keydown', handleKey)
         }
-    }, [])
+    }, [onClose])
 
     return createPortal(<ModalOverlay onClose={onClose}>
             <div className={styles.main} onClick={(e) => {

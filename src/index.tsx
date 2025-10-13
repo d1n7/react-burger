@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import ErrorInform from "./components/error-inform/error-inform";
 import {applyMiddleware, createStore} from "redux";
 import {thunk} from "redux-thunk";
-import {rootReducer} from "./services/reducers";
+import {rootReducer} from "./services";
 import {Provider} from "react-redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
 

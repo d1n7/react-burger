@@ -32,6 +32,10 @@
     cursor: pointer;
 }
 
+.hide {
+    text-indent: -9999px;
+}
+
 .one {
     display: flex;
     justify-content: center;

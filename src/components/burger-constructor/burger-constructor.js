@@ -5,87 +5,128 @@ import points from "../../images/points.svg";
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import HiddenPoint from "../../images/hidden-point.svg"
+import {useSelector} from "react-redux";
 
-const BurgerConstructor = (props) => {
-    const [modalVisible, setModalVisible] = React.useState(false);
+const BurgerConstructor = () => {
+    const bun = useSelector(state => state.burger.bun);
 
-    const buns = props.data.filter(item => item.type === 'bun');
-    const mains = props.data.filter(item => item.type === 'main');
-    const sauces = props.data.filter(item => item.type === 'sauce');
+    // const [modalVisible, setModalVisible] = React.useState(false);
 
-    const bun = buns[Math.floor(Math.random() * buns.length)];
-
-    let main = []
-    let sauce = []
-
-    for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
-        main = [...main, sauces[Math.floor(Math.random() * sauces.length)]];
-        sauce = [...sauce, mains[Math.floor(Math.random() * mains.length)]];
-    }
-
-    const ingredients = [bun, ...sauce, ...main, bun]
-    const sum = ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0)
-
-    const openOrderModal = () => {
-        setModalVisible(true)
-    }
-
-    const handleCloseModal = () => {
-        setModalVisible(false)
-    }
+    // const openOrderModal = () => {
+    //     setModalVisible(true)
+    // }
+    //
+    // const handleCloseModal = () => {
+    //     setModalVisible(false)
+    // }
 
 
-    const modalOrder = <Modal header="" onClose={handleCloseModal}>
-        <OrderDetails/>
-    </Modal>
+    // const modalOrder = <Modal header="" onClose={handleCloseModal}>
+    //     <OrderDetails/>
+    // </Modal>
 
-    return (<section className={styles.sec}>
-        {ingredients && <div key={ingredients[0]._id + "t"} className={`${styles.row} pb-4`}>
+    return <section className={styles.sec}>
+        <div className={`${styles.row} pb-4`}>
             <div className={`${styles.points} pr-2`}/>
-            <ConstructorElement
+            {bun ? <ConstructorElement
                 type={'top'}
                 isLocked={true}
-                text={ingredients[0].name}
-                price={ingredients[0].price}
-                thumbnail={ingredients[0].image}/>
-        </div>}
-        <div className={styles.lenta} key={"SecRetID"}>
-            {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map((item, index) => (
-                <div key={index} className={styles.row}>
-                    <div className={`${styles.points} pl-2`}>
-                        <img alt={"points"} src={points}/>
-                    </div>
-                    <ConstructorElement
-                        text={item.name}
-                        price={item.price}
-                        thumbnail={item.image}
-                    />
-                </div>
-            ))}
-
+                text={bun.name}
+                price={bun.price}
+                thumbnail={bun.image}
+            /> : <ConstructorElement
+                type={'top'}
+                isLocked={true}
+                text={"Выберите булку"}
+                price={null}
+                thumbnail={HiddenPoint}
+            />}
         </div>
-
-        {ingredients && <div key={ingredients[ingredients.length - 1]._id + "b"} className={`${styles.row} pt-4`}>
-            <div className={`${styles.points} pl-2`}/>
-            <ConstructorElement
+        <div className={styles.lenta} key={"SecRetID"}>
+            <div className={styles.row}>
+                <div className={`${styles.points} pl-2`}/>
+                <ConstructorElement
+                    text={"Добавьте ингредиент"}
+                    price={null}
+                    thumbnail={HiddenPoint}
+                />
+            </div>
+        </div>
+        <div className={`${styles.row} pt-4`}>
+            <div className={`${styles.points} pr-2`}/>
+            {bun ? <ConstructorElement
                 type={'bottom'}
                 isLocked={true}
-                text={ingredients[ingredients.length - 1].name}
-                price={ingredients[ingredients.length - 1].price}
-                thumbnail={ingredients[ingredients.length - 1].image}/>
-        </div>}
+                text={bun.name}
+                price={bun.price}
+                thumbnail={bun.image}
+            /> : <ConstructorElement
+                type={'bottom'}
+                isLocked={true}
+                text={"Выберите булку"}
+                price={null}
+                thumbnail={HiddenPoint}
+            />}
+        </div>
         <div className={`${styles.summary} pt-10`}>
-            <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{sum}<CurrencyIcon
+            <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{0}<CurrencyIcon
                 type="primary" className="p-2"/></div>
-            <div style={{overflow: 'hidden'}}>
-                <Button htmlType="button" type="primary" size="large" onClick={openOrderModal}>
+            <div>
+                <Button htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
-                {modalVisible && modalOrder}
             </div>
-
         </div>
-    </section>)
+    </section>
+
+    // return (<section className={styles.sec}>
+    //     {ingredients && <div key={ingredients[0]._id + "t"} className={`${styles.row} pb-4`}>
+    //         <div className={`${styles.points} pr-2`}/>
+    //         <ConstructorElement
+    //             type={'top'}
+    //             isLocked={true}
+    //             text={ingredients[0].name}
+    //             price={ingredients[0].price}
+    //             thumbnail={ingredients[0].image}/>
+    //     </div>}
+    //     <div className={styles.lenta} key={"SecRetID"}>
+    //         {ingredients.filter((_, index) => index !== 0 && index !== ingredients.length - 1).map((item, index) => (
+    //             <div key={index} className={styles.row}>
+    //                 <div className={`${styles.points} pl-2`}>
+    //                     <img alt={"points"} src={points}/>
+    //                 </div>
+    //                 <ConstructorElement
+    //                     text={item.name}
+    //                     price={item.price}
+    //                     thumbnail={item.image}
+    //                 />
+    //             </div>
+    //         ))}
+    //
+    //     </div>
+    //
+    //     {ingredients && <div key={ingredients[ingredients.length - 1]._id + "b"} className={`${styles.row} pt-4`}>
+    //         <div className={`${styles.points} pl-2`}/>
+    //         <ConstructorElement
+    //             type={'bottom'}
+    //             isLocked={true}
+    //             text={ingredients[ingredients.length - 1].name}
+    //             price={ingredients[ingredients.length - 1].price}
+    //             thumbnail={ingredients[ingredients.length - 1].image}/>
+    //     </div>}
+    //     <div className={`${styles.summary} pt-10`}>
+    //         <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{sum}<CurrencyIcon
+    //             type="primary" className="p-2"/></div>
+    //         <div style={{overflow: 'hidden'}}>
+    //             <Button htmlType="button" type="primary" size="large" onClick={openOrderModal}>
+    //                 Оформить заказ
+    //             </Button>
+    //             {modalVisible && modalOrder}
+    //         </div>
+    //
+    //     </div>
+    // </section>)
 }
 
 BurgerConstructor.propTypes = {
