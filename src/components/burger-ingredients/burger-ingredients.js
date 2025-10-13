@@ -6,7 +6,6 @@ import IngredientTypeList from "../ingredient-type-list/ingredient-type-list";
 import Loading from "../../images/loading.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_CURRENT_TAB} from "../../services/actions/ingredients";
-import ReactDOM from "react-dom/client";
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch();
@@ -16,8 +15,6 @@ const BurgerIngredients = () => {
     }
 
     const currentTab = useSelector(state => state.ingredients.currentTab);
-
-    const sectionRefs = useRef({});
 
     useEffect(() => {
         if (sectionRefs.current && sectionRefs.current[currentTab]) {
@@ -30,10 +27,11 @@ const BurgerIngredients = () => {
         ingredients: state.ingredients.ingredients
     }));
 
+    const sectionRefs = useRef({});
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                console.log("entries", entries);
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         switch (entry.target) {
@@ -46,6 +44,8 @@ const BurgerIngredients = () => {
                             case sectionRefs.current['main']:
                                 dispatch({type: SET_CURRENT_TAB, currentTab: "main"});
                                 break
+                            default:
+                                break;
                         }
                     }
                 });
@@ -62,7 +62,7 @@ const BurgerIngredients = () => {
                 if (ref) observer.unobserve(ref);
             });
         };
-    }, [ingredients]);
+    }, [ingredients, dispatch]);
 
 
     return <section className={styles.sec}>
