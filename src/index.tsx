@@ -4,16 +4,28 @@ import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import ErrorInform from "./components/error-inform/error-inform";
+import {applyMiddleware, createStore} from "redux";
+import {thunk} from "redux-thunk";
+import {rootReducer} from "./services/reducers";
+import {Provider} from "react-redux";
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
+const middlewares = [thunk]
+
+const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
+
+const store = createStore(rootReducer, undefined, enhancer);
 root.render(
     <React.StrictMode>
-        <ErrorInform>
-            <App/>
-        </ErrorInform>
+        <Provider store={store}>
+            <ErrorInform>
+                <App/>
+            </ErrorInform>
+        </Provider>
     </React.StrictMode>
 );
 
