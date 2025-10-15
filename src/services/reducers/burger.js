@@ -1,4 +1,12 @@
-import {ADD_BUN, ADD_FILLING, CALCULATE_PRICE, REMOVE_BUN, REMOVE_FILLING} from "../actions/burger";
+import {
+    ADD_BUN,
+    ADD_FILLING,
+    CALCULATE_PRICE,
+    CLEAR_BURGER,
+    MOVE_BURGER_ELEMENTS,
+    REMOVE_BUN,
+    REMOVE_FILLING
+} from "../actions/burger";
 
 const initialState = {
     bun: "",
@@ -8,6 +16,8 @@ const initialState = {
 
 export const burgerReducer = (state = initialState, action) => {
     switch (action.type) {
+        case CLEAR_BURGER:
+            return initialState
         case ADD_BUN:
             console.log(action)
             return {
@@ -36,7 +46,16 @@ export const burgerReducer = (state = initialState, action) => {
                 ...state,
                 price: action.price,
             }
-
+        case MOVE_BURGER_ELEMENTS:
+            const updatedFillings = [...state.fillings]
+            const dragId = updatedFillings[action.payload.dragIndex]
+            const hoverId = updatedFillings[action.payload.hoverIndex]
+            updatedFillings[action.payload.hoverIndex] = dragId
+            updatedFillings[action.payload.dragIndex] = hoverId
+            return {
+                ...state,
+                fillings: [...updatedFillings],
+            }
         default:
             return state
     }

@@ -1,16 +1,20 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
-import points from "../../images/points.svg";
-import {Button, ConstructorElement, Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+
+import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
 import HiddenPoint from "../../images/hidden-point.svg"
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_BUN, ADD_FILLING, CALCULATE_PRICE, REMOVE_FILLING} from "../../services/actions/burger";
+import {ADD_BUN, ADD_FILLING, CALCULATE_PRICE, CLEAR_BURGER, MOVE_BURGER_ELEMENTS} from "../../services/actions/burger";
+import {CLOSE_ORDER_INFO, sendOrder} from "../../services/actions/order";
+import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
+    const dispatch = useDispatch();
+
     const bun = useSelector(state =>
         state.ingredients.ingredients.find(ingredient => ingredient._id === state.burger.bun))
 
@@ -25,29 +29,20 @@ const BurgerConstructor = () => {
 
     const price = useSelector(state => state.burger.price)
 
-
     const burgerIngredients = useMemo(() => {
         return burgerFill.map(itemId =>
             allIngredients.find((item) => item._id === itemId))
-    }, [allIngredients, burgerFill])
+    }, [allIngredients, burgerFill, fillings])
 
+    const handleCloseModal = () => {
+        dispatch({type: CLOSE_ORDER_INFO})
+    }
 
-    // const [modalVisible, setModalVisible] = React.useState(false);
+    const modalOrder = <Modal header="" onClose={handleCloseModal}>
+        <OrderDetails/>
+    </Modal>
 
-    // const openOrderModal = () => {
-    //     setModalVisible(true)
-    // }
-    //
-    // const handleCloseModal = () => {
-    //     setModalVisible(false)
-    // }
-
-
-    // const modalOrder = <Modal header="" onClose={handleCloseModal}>
-    //     <OrderDetails/>
-    // </Modal>
-
-    const dispatch = useDispatch();
+    const modalVisible = useSelector(state => state.order.visible)
 
     const [{isOverTop}, refDropTop] = useDrop(() => ({
         accept: "bun",
@@ -97,8 +92,6 @@ const BurgerConstructor = () => {
 
         let result = 0
 
-        console.log("fi", fillingsPrice)
-
         if (bun) {
             result += bun.price * 2;
         }
@@ -108,15 +101,29 @@ const BurgerConstructor = () => {
         }
 
         dispatch({type: CALCULATE_PRICE, price: result})
-    }, [selectedBun, burgerIngredients])
+    }, [selectedBun, burgerIngredients, allIngredients, dispatch, fillings])
 
-    const onDelete = (itemId, index) => {
-        dispatch({
-            type: REMOVE_FILLING,
-            payload: {itemId, index},
-        })
 
+    const handleOrder = () => {
+        dispatch(sendOrder({
+            ingredients: burgerFill
+        }))
     }
+
+    const {isSuccess, orderNumber} = useSelector(state => ({
+        isSuccess: state.order.orderRequestSuccess,
+        orderNumber: state.order.order
+    }))
+
+    useEffect(() => {
+        if (isSuccess && orderNumber > 0) {
+            dispatch({type: CLEAR_BURGER})
+        }
+    }, [isSuccess, orderNumber, dispatch])
+
+    const moveElement = useCallback((dragIndex, hoverIndex) => {
+        dispatch({type: MOVE_BURGER_ELEMENTS, payload: {dragIndex, hoverIndex}})
+    }, [fillings])
 
     return <section className={styles.sec}>
         <div className={`${styles.row} pb-4`} ref={refDropTop}>
@@ -133,18 +140,12 @@ const BurgerConstructor = () => {
 
         <div className={styles.lenta} key={"SecRetID"} ref={refDrop}>
             {burgerIngredients.length ? burgerIngredients.map((item, index) => (
-                <div key={index} className={styles.row}>
-                    <div className={`${styles.points} pl-2`}>
-                        <img alt={"points"} src={points}/>
-                    </div>
-                    <ConstructorElement
-                        text={item.name}
-                        price={item.price}
-                        thumbnail={item.image}
-                        extraClass={isOver ? styles.over : null}
-                        handleClose={() => onDelete(item._id, index)}
-                    />
-                </div>
+                <BurgerConstructorElement
+                    key={item._id}
+                    element={item}
+                    isOver={isOver}
+                    index={index}
+                    moveElement={moveElement}/>
             )) : <div className={styles.row}>
                 <div className={`${styles.points} pl-2`}/>
                 <ConstructorElement
@@ -159,7 +160,7 @@ const BurgerConstructor = () => {
             <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'bottom'}
-                isLocked={true}ccccbbchgcjbgfhvdtgrbbbjjfrhhgrjdcbegbebcnhc
+                isLocked={true}
                 text={bun ? bun.name : "Выберите булку"}
                 price={bun ? bun.price : null}
                 extraClass={isOverTop || isOverBottom ? styles.over : null}
@@ -170,9 +171,10 @@ const BurgerConstructor = () => {
             <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{price}<CurrencyIcon
                 type="primary" className="p-2"/></div>
             <div>
-                <Button htmlType="button" type="primary" size="large">
+                <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
                     Оформить заказ
                 </Button>
+                {modalVisible && modalOrder}
             </div>
         </div>
     </section>

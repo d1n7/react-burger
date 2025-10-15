@@ -1,0 +1,16 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 568px;
+    margin-left: 16px;
+}
+
+.points {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+.over {
+    border: #646689 1px solid;
+}

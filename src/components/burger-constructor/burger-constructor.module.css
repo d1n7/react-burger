@@ -26,11 +26,7 @@
     margin-left: 16px;
 }
 
-.points {
-    height: 24px;
-    width: 24px;
-    cursor: pointer;
-}
+
 
 .hide {
     text-indent: -9999px;
@@ -43,6 +39,12 @@
 
 .over {
     border: #646689 1px solid;
+}
+
+.points {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
 }
 
 .sec {

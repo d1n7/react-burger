@@ -30,6 +30,8 @@ const BurgerIngredients = () => {
     const sectionRefs = useRef({});
 
     useEffect(() => {
+        const curRef = sectionRefs.current
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -53,12 +55,12 @@ const BurgerIngredients = () => {
             {threshold: 0.5} // Adjust as needed
         );
 
-        Object.values(sectionRefs.current).forEach((ref) => {
+        Object.values(curRef).forEach((ref) => {
             if (ref) observer.observe(ref);
         });
 
         return () => {
-            Object.values(sectionRefs.current).forEach((ref) => {
+            Object.values(curRef).forEach((ref) => {
                 if (ref) observer.unobserve(ref);
             });
         };

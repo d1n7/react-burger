@@ -5,13 +5,12 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
+import {useDispatch, useSelector} from "react-redux";
+import {CLOSE_INGREDIENT_INFORMATION, SHOW_INGREDIENT_INFORMATION} from "../../services/actions/info";
 
 const Ingredient = ({ingredient, count}) => {
-    const [modalVisible, setModalVisible] = React.useState(false);
-
-    const modalIngredient = <Modal header={"Детали ингредиента"} onClose={() => setModalVisible(false)}>
-        <IngredientDetails ingredient={ingredient}/>
-    </Modal>
+    const dispatch = useDispatch();
+    const infoModalVisible = useSelector(state => state.infoModal.visible);
 
     const [{isDragging}, refDrag] = useDrag(() => ({
         type: ingredient.type,
@@ -25,10 +24,25 @@ const Ingredient = ({ingredient, count}) => {
         opacity: 0.5,
     }
 
+    const handleClose = () => {
+        dispatch({
+            type: CLOSE_INGREDIENT_INFORMATION,
+        })
+    }
+
+    const handleOpen = () => {
+        dispatch({type: SHOW_INGREDIENT_INFORMATION})
+    }
+
+    const modalIngredient = <Modal header={"Детали ингредиента"} onClose={handleClose}>
+        <IngredientDetails ingredient={ingredient}/>
+    </Modal>
+
+
     return (
         <div className={styles.block}>
             {count > 0 ? <Counter count={count} size="default" extraClass={`${styles.counter} m-5 small`}/> : <></>}
-            <div onClick={() => setModalVisible(true)} ref={refDrag} className={isDragging ? classOnDrag : ""}>
+            <div onClick={handleOpen} ref={refDrag} className={isDragging ? classOnDrag : ""}>
 
                 <img alt={ingredient.name} src={ingredient.image}/>
                 <div className={`${styles.price} text text_type_digits-default pt-1 pb-1`}>{ingredient.price}
@@ -36,7 +50,7 @@ const Ingredient = ({ingredient, count}) => {
                 </div>
                 <div className="text text_type_main-default">{ingredient.name}</div>
             </div>
-            {modalVisible && modalIngredient}
+            {infoModalVisible && modalIngredient}
         </div>
     )
 }
