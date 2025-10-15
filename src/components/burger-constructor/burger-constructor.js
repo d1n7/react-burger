@@ -159,7 +159,7 @@ const BurgerConstructor = () => {
             <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'bottom'}
-                isLocked={true}
+                isLocked={true}ccccbbchgcjbgfhvdtgrbbbjjfrhhgrjdcbegbebcnhc
                 text={bun ? bun.name : "Выберите булку"}
                 price={bun ? bun.price : null}
                 extraClass={isOverTop || isOverBottom ? styles.over : null}

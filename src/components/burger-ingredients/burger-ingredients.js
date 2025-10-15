@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import styles from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import PropTypes  from 'prop-types';
 import IngredientTypeList from "../ingredient-type-list/ingredient-type-list";
 import Loading from "../../images/loading.svg";
 import {useDispatch, useSelector} from "react-redux";
@@ -64,6 +64,25 @@ const BurgerIngredients = () => {
         };
     }, [ingredients, dispatch]);
 
+    const counterData = useSelector(state => {
+        const data = new Map()
+         state.burger.fillings.forEach(itemID => {
+            if (data.has(itemID)) {
+                data.set(itemID, data.get(itemID) + 1);
+            } else {
+                data.set(itemID, 1);
+            }
+        })
+
+        if (state.burger.bun){
+            data.set(state.burger.bun, 2);
+        }
+
+        return data
+    });
+
+    console.log("counterData", counterData)
+
 
     return <section className={styles.sec}>
         <div className={`${styles.title} text_type_main-large text pt-10 pb-5`}>Соберите бургер</div>
@@ -84,11 +103,11 @@ const BurgerIngredients = () => {
             </div>
             :
             <div className={styles.scrolldiv}>
-                <IngredientTypeList items={ingredients} type={"bun"} name={"Булки"}
+                <IngredientTypeList items={ingredients} type={"bun"} name={"Булки"} counterData={counterData}
                                     ref={(el) => (sectionRefs.current['bun'] = el)}/>
-                <IngredientTypeList items={ingredients} type={"sauce"} name={"Соусы"}
+                <IngredientTypeList items={ingredients} type={"sauce"} name={"Соусы"} counterData={counterData}
                                     ref={(el) => (sectionRefs.current['sauce'] = el)}/>
-                <IngredientTypeList items={ingredients} type={"main"} name={"Начинки"}
+                <IngredientTypeList items={ingredients} type={"main"} name={"Начинки"} counterData={counterData}
                                     ref={(el) => (sectionRefs.current['main'] = el)}/>
             </div>
         }

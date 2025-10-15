@@ -6,7 +6,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 
-const Ingredient = ({ingredient}) => {
+const Ingredient = ({ingredient, count}) => {
     const [modalVisible, setModalVisible] = React.useState(false);
 
     const modalIngredient = <Modal header={"Детали ингредиента"} onClose={() => setModalVisible(false)}>
@@ -27,9 +27,9 @@ const Ingredient = ({ingredient}) => {
 
     return (
         <div className={styles.block}>
-
+            {count > 0 ? <Counter count={count} size="default" extraClass={`${styles.counter} m-5 small`}/> : <></>}
             <div onClick={() => setModalVisible(true)} ref={refDrag} className={isDragging ? classOnDrag : ""}>
-                <Counter count={3} size="default"  extraClass={`${styles.counter} m-5`}/>
+
                 <img alt={ingredient.name} src={ingredient.image}/>
                 <div className={`${styles.price} text text_type_digits-default pt-1 pb-1`}>{ingredient.price}
                     <CurrencyIcon type="primary" className="p-2"/>

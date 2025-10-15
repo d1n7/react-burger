@@ -7,10 +7,12 @@
 .block {
     cursor: pointer;
     overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .counter {
-    position: relative;
+    position: absolute;
     float: right;
-    z-index: 100;
+    z-index: 5;
 }

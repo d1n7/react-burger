@@ -3,13 +3,14 @@ import styles from "./ingredient-type-list.module.css";
 import Ingredient from "../ingredient/ingredient";
 import PropTypes from "prop-types";
 
-const IngredientTypeList = ({items, type, name, ref}) => {
+const IngredientTypeList = ({items, type, name, ref, counterData}) => {
+
     return <>
         <div className="text_type_main-medium text pt-10 pb-6" id={type} ref={ref}>{name}</div>
         <div className={`${styles.bulki} pl-4 pr-4`}>
             {items.filter(i => i.type === type)
                 .map((item) => {
-                    return <Ingredient key={item._id} ingredient={item}/>;
+                    return <Ingredient key={item._id} ingredient={item} count={counterData.get(item._id)}/>;
                 })}
         </div>
     </>
