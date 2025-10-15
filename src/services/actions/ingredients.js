@@ -14,7 +14,7 @@ const sleep = (ms) => {
 export const getIngredients = () => dispatch => {
     dispatch({type: GET_ITEMS_REQUEST});
 
-    sleep(3000).then(() => {
+    sleep(1000).then(() => {
         try {
             const address = new URL(ingredientsEndpoint, apiURL).href
             fetch(address).then(res => {

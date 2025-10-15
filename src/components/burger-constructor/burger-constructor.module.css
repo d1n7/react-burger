@@ -41,6 +41,10 @@
     justify-content: center;
 }
 
+.over {
+    border: #646689 1px solid;
+}
+
 .sec {
     display: flex;
     flex-direction: column;
