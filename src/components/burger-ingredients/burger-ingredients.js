@@ -83,9 +83,6 @@ const BurgerIngredients = () => {
         return data
     });
 
-    console.log("counterData", counterData)
-
-
     return <section className={styles.sec}>
         <div className={`${styles.title} text_type_main-large text pt-10 pb-5`}>Соберите бургер</div>
         <div className={styles.tabs}>

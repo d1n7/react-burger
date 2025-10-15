@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo} from "react";
 import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
-
+import {v4 as uuidv4} from 'uuid';
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import HiddenPoint from "../../images/hidden-point.svg"
@@ -22,17 +22,14 @@ const BurgerConstructor = () => {
 
     const allIngredients = useSelector(state => state.ingredients.ingredients)
 
-    const {fillings, selectedBun} = useSelector(state => ({
-        selectedBun: state.burger.bun,
-        fillings: state.burger.fillings,
-    }))
+    const selectedBun = useSelector(state => state.burger.bun)
 
     const price = useSelector(state => state.burger.price)
 
     const burgerIngredients = useMemo(() => {
         return burgerFill.map(itemId =>
             allIngredients.find((item) => item._id === itemId))
-    }, [allIngredients, burgerFill, fillings])
+    }, [allIngredients, burgerFill])
 
     const handleCloseModal = () => {
         dispatch({type: CLOSE_ORDER_INFO})
@@ -87,7 +84,7 @@ const BurgerConstructor = () => {
     useEffect(() => {
         const bun = allIngredients.find((item => selectedBun === item._id))
 
-        const fillingsPrice = fillings.map(itemId => allIngredients.find((item) => item._id === itemId))
+        const fillingsPrice = burgerFill.map(itemId => allIngredients.find((item) => item._id === itemId))
             .reduce((acc, item) => acc + item.price, 0)
 
         let result = 0
@@ -96,12 +93,12 @@ const BurgerConstructor = () => {
             result += bun.price * 2;
         }
 
-        if (fillings) {
+        if (fillingsPrice) {
             result += fillingsPrice
         }
 
         dispatch({type: CALCULATE_PRICE, price: result})
-    }, [selectedBun, burgerIngredients, allIngredients, dispatch, fillings])
+    }, [selectedBun, burgerIngredients, allIngredients, dispatch, burgerFill])
 
 
     const handleOrder = () => {
@@ -123,10 +120,10 @@ const BurgerConstructor = () => {
 
     const moveElement = useCallback((dragIndex, hoverIndex) => {
         dispatch({type: MOVE_BURGER_ELEMENTS, payload: {dragIndex, hoverIndex}})
-    }, [fillings])
+    }, [dispatch])
 
     return <section className={styles.sec}>
-        <div className={`${styles.row} pb-4`} ref={refDropTop}>
+        <div className={`${styles.row} pb-4`} ref={refDropTop} key={uuidv4()}>
             <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'top'}
@@ -138,10 +135,10 @@ const BurgerConstructor = () => {
             />
         </div>
 
-        <div className={styles.lenta} key={"SecRetID"} ref={refDrop}>
+        <div className={styles.lenta} key={uuidv4()} ref={refDrop}>
             {burgerIngredients.length ? burgerIngredients.map((item, index) => (
                 <BurgerConstructorElement
-                    key={item._id}
+                    key={uuidv4()}
                     element={item}
                     isOver={isOver}
                     index={index}
@@ -156,7 +153,7 @@ const BurgerConstructor = () => {
                 />
             </div>}
         </div>
-        <div className={`${styles.row} pt-4`} ref={refDropBottom}>
+        <div className={`${styles.row} pt-4`} ref={refDropBottom} key={uuidv4()}>
             <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'bottom'}

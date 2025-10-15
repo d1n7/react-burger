@@ -19,7 +19,6 @@ export const burgerReducer = (state = initialState, action) => {
         case CLEAR_BURGER:
             return initialState
         case ADD_BUN:
-            console.log(action)
             return {
                 ...state,
                 bun: action.bun,

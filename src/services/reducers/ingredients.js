@@ -11,7 +11,6 @@ const initialState = {
 export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ITEMS_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 ingredients: action.ingredients,

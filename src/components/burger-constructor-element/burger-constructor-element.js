@@ -37,20 +37,14 @@ const BurgerConstructorElement = ({element, isOver, index, moveElement}) => {
             const dragIndex = item.index;
             const hoverIndex = index;
 
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top
-
-            // if dragging down, continue only when hover is smaller than middle Y
-            if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-            // if dragging up, continue only when hover is bigger than middle Y
-            if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
-
+            if (dragIndex === hoverIndex) {
+                return;
+            }
 
             if (dragIndex === hoverIndex) {
                 return;
             }
-            console.log("dragIndex, hoverIndex", dragIndex, hoverIndex);
+
             moveElement(dragIndex, hoverIndex);
 
             item.index = hoverIndex; // Update the dragged item's index for subsequent hovers
