@@ -6,6 +6,7 @@ import styles from "../burger-constructor-element/burger-constructor-element.mod
 import points from "../../images/points.svg";
 import PropTypes from "prop-types";
 import {useDrag, useDrop} from "react-dnd";
+import {IngredientType} from "../../utils/types";
 
 const BurgerConstructorElement = ({element, isOver, index, moveElement}) => {
     const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const BurgerConstructorElement = ({element, isOver, index, moveElement}) => {
 
     const dragDropRef = dragRef(dropRef(ref))
 
-    return <div className={styles.row}
+    return (<div className={styles.row}
                 ref={dragDropRef}
                 style={{opacity: isDragging ? 0.5 : 1}}>
         <div className={`${styles.points} pl-2`}>
@@ -66,26 +67,14 @@ const BurgerConstructorElement = ({element, isOver, index, moveElement}) => {
             extraClass={isOver ? styles.over : null}
             handleClose={() => onDelete(element._id, index)}
         />
-    </div>
+    </div>)
 }
 
 BurgerConstructorElement.propTypes = {
-    element: PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number,
-    }),
+    element: IngredientType,
     isOver: PropTypes.bool,
     index: PropTypes.number,
+    moveElement: PropTypes.func,
 }
 
 export default BurgerConstructorElement;

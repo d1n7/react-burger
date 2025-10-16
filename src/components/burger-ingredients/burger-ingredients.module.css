@@ -15,15 +15,11 @@
     scroll-snap-align: start;
     scrollbar-width: thin;
     height: calc(100vh - 340px);
+
 }
 
 .tabs {
     display: flex;
-}
-
-.photo {
-    width: 240px;
-    height: 120px;
 }
 
 .loading {

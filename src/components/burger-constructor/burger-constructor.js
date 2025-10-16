@@ -1,7 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from "react";
 import styles from "./burger-constructor.module.css";
-import PropTypes from "prop-types";
-import {v4 as uuidv4} from 'uuid';
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import HiddenPoint from "../../images/hidden-point.svg"
@@ -27,17 +25,17 @@ const BurgerConstructor = () => {
     const price = useSelector(state => state.burger.price)
 
     const burgerIngredients = useMemo(() => {
-        return burgerFill.map(itemId =>
-            allIngredients.find((item) => item._id === itemId))
+        return burgerFill.map(filling =>
+            allIngredients.find((item) => item._id === filling.id))
     }, [allIngredients, burgerFill])
 
     const handleCloseModal = () => {
         dispatch({type: CLOSE_ORDER_INFO})
     }
 
-    const modalOrder = <Modal header="" onClose={handleCloseModal}>
+    const modalOrder = (<Modal header="" onClose={handleCloseModal}>
         <OrderDetails/>
-    </Modal>
+    </Modal>)
 
     const modalVisible = useSelector(state => state.order.visible)
 
@@ -84,7 +82,7 @@ const BurgerConstructor = () => {
     useEffect(() => {
         const bun = allIngredients.find((item => selectedBun === item._id))
 
-        const fillingsPrice = burgerFill.map(itemId => allIngredients.find((item) => item._id === itemId))
+        const fillingsPrice = burgerFill.map(filling => allIngredients.find((item) => item._id === filling.id))
             .reduce((acc, item) => acc + item.price, 0)
 
         let result = 0
@@ -103,7 +101,7 @@ const BurgerConstructor = () => {
 
     const handleOrder = () => {
         dispatch(sendOrder({
-            ingredients: burgerFill
+            ingredients: burgerFill.map(filling => filling.id),
         }))
     }
 
@@ -122,23 +120,23 @@ const BurgerConstructor = () => {
         dispatch({type: MOVE_BURGER_ELEMENTS, payload: {dragIndex, hoverIndex}})
     }, [dispatch])
 
-    return <section className={styles.sec}>
-        <div className={`${styles.row} pb-4`} ref={refDropTop} key={uuidv4()}>
+    return (<section className={styles.sec}>
+        <div className={`${styles.row} pb-4`} ref={refDropTop} key={"top"}>
             <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'top'}
                 isLocked={true}
-                text={bun ? bun.name : "Выберите булку"}
+                text={bun ? bun.name + " (верх)" : "Выберите булку"}
                 price={bun ? bun.price : null}
                 extraClass={isOverTop || isOverBottom ? styles.over : null}
                 thumbnail={bun ? bun.image : HiddenPoint}
             />
         </div>
 
-        <div className={styles.lenta} key={uuidv4()} ref={refDrop}>
+        <div className={styles.lenta} key={"middle"} ref={refDrop}>
             {burgerIngredients.length ? burgerIngredients.map((item, index) => (
                 <BurgerConstructorElement
-                    key={uuidv4()}
+                    key={item.uniq}
                     element={item}
                     isOver={isOver}
                     index={index}
@@ -153,12 +151,12 @@ const BurgerConstructor = () => {
                 />
             </div>}
         </div>
-        <div className={`${styles.row} pt-4`} ref={refDropBottom} key={uuidv4()}>
+        <div className={`${styles.row} pt-4`} ref={refDropBottom} key={"bottom"}>
             <div className={`${styles.points} pr-2`}/>
             <ConstructorElement
                 type={'bottom'}
                 isLocked={true}
-                text={bun ? bun.name : "Выберите булку"}
+                text={bun ? bun.name + " (низ)" : "Выберите булку"}
                 price={bun ? bun.price : null}
                 extraClass={isOverTop || isOverBottom ? styles.over : null}
                 thumbnail={bun ? bun.image : HiddenPoint}
@@ -174,26 +172,7 @@ const BurgerConstructor = () => {
                 {modalVisible && modalOrder}
             </div>
         </div>
-    </section>
-}
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            _id: PropTypes.string,
-            name: PropTypes.string,
-            type: PropTypes.string,
-            proteins: PropTypes.number,
-            fat: PropTypes.number,
-            carbohydrates: PropTypes.number,
-            calories: PropTypes.number,
-            price: PropTypes.number,
-            image: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-            __v: PropTypes.number,
-        })
-    ).isRequired,
+    </section>)
 }
 
 export default BurgerConstructor;

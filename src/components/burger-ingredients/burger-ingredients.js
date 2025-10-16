@@ -1,11 +1,13 @@
 import React, {useEffect, useRef} from "react";
 import styles from "./burger-ingredients.module.css";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes  from 'prop-types';
 import IngredientTypeList from "../ingredient-type-list/ingredient-type-list";
 import Loading from "../../images/loading.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_CURRENT_TAB} from "../../services/actions/ingredients";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import {CLOSE_INGREDIENT_INFORMATION} from "../../services/actions/info";
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch();
@@ -68,22 +70,34 @@ const BurgerIngredients = () => {
 
     const counterData = useSelector(state => {
         const data = new Map()
-         state.burger.fillings.forEach(itemID => {
-            if (data.has(itemID)) {
-                data.set(itemID, data.get(itemID) + 1);
+        state.burger.fillings.forEach(item => {
+            if (data.has(item.id)) {
+                data.set(item.id, data.get(item.id) + 1);
             } else {
-                data.set(itemID, 1);
+                data.set(item.id, 1);
             }
         })
 
-        if (state.burger.bun){
+        if (state.burger.bun) {
             data.set(state.burger.bun, 2);
         }
 
         return data
-    });
+    })
 
-    return <section className={styles.sec}>
+    const handleClose = () => {
+        dispatch({
+            type: CLOSE_INGREDIENT_INFORMATION,
+        })
+    }
+
+    const modalIngredient = (<Modal header={"Детали ингредиента"} onClose={handleClose}>
+        <IngredientDetails/>
+    </Modal>)
+
+    const infoModalVisible = useSelector(state => state.infoModal.visible);
+
+    return (<section className={styles.sec}>
         <div className={`${styles.title} text_type_main-large text pt-10 pb-5`}>Соберите бургер</div>
         <div className={styles.tabs}>
             <Tab value="bun" active={currentTab === 'bun'} onClick={setCurrent}>
@@ -110,27 +124,8 @@ const BurgerIngredients = () => {
                                     ref={(el) => (sectionRefs.current['main'] = el)}/>
             </div>
         }
-    </section>
-}
-
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            _id: PropTypes.string,
-            name: PropTypes.string,
-            type: PropTypes.string,
-            proteins: PropTypes.number,
-            fat: PropTypes.number,
-            carbohydrates: PropTypes.number,
-            calories: PropTypes.number,
-            price: PropTypes.number,
-            image: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-            __v: PropTypes.number,
-        })
-    ).isRequired,
+        {infoModalVisible && modalIngredient}
+    </section>)
 }
 
 export default BurgerIngredients;

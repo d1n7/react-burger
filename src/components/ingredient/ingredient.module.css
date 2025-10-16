@@ -6,7 +6,6 @@
 
 .block {
     cursor: pointer;
-    overflow: hidden;
     position: relative;
     z-index: 1;
 }

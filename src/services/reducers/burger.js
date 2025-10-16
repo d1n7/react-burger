@@ -8,6 +8,8 @@ import {
     REMOVE_FILLING
 } from "../actions/burger";
 
+import {v4 as uuidv4} from 'uuid';
+
 const initialState = {
     bun: "",
     fillings: [],
@@ -31,7 +33,7 @@ export const burgerReducer = (state = initialState, action) => {
         case ADD_FILLING:
             return {
                 ...state,
-                fillings: [...state.fillings, action.id]
+                fillings: [...state.fillings, {id : action.id, uniq: uuidv4()}]
             }
         case REMOVE_FILLING:
             const temp = state.fillings
