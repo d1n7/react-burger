@@ -1,51 +1,50 @@
 .lenta {
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-snap-type: y;
-    scroll-snap-align: start;
-    scrollbar-width: thin;
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scroll-snap-type: y;
+	scroll-snap-align: start;
+	scrollbar-width: thin;
 }
 
 .summary {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    width: 568px;
-    align-items: center;
-    justify-content: flex-end;
+	display: flex;
+	flex-direction: row;
+	gap: 40px;
+	width: 568px;
+	align-items: center;
+	justify-content: flex-end;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 568px;
-    margin-left: 16px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 568px;
+	margin-left: 16px;
 }
 
 .one {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .over {
-    border: #646689 1px solid;
+	border: #646689 1px solid;
 }
 
 .points {
-    height: 24px;
-    width: 24px;
-    cursor: pointer;
+	height: 24px;
+	width: 24px;
+	cursor: pointer;
 }
 
 .sec {
-    display: flex;
-    flex-direction: column;
-    background-color: #131316;
-    margin-top: 100px;
-    height: calc(100vh - 340px);
-
+	display: flex;
+	flex-direction: column;
+	background-color: #131316;
+	margin-top: 100px;
+	height: calc(100vh - 340px);
 }

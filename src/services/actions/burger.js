@@ -1,7 +1,7 @@
-export const ADD_BUN = 'ADD_BUN'
-export const REMOVE_BUN = 'REMOVE_BUN'
-export const CLEAR_BURGER = 'CLEAR_BURGER'
-export const ADD_FILLING = 'ADD_FILLING'
-export const REMOVE_FILLING = 'REMOVE_FILLING'
-export const CALCULATE_PRICE = 'CALCULATE_PRICE'
-export const MOVE_BURGER_ELEMENTS = 'MOVE_BURGER_ELEMENTS'
+export const ADD_BUN = "ADD_BUN";
+export const REMOVE_BUN = "REMOVE_BUN";
+export const CLEAR_BURGER = "CLEAR_BURGER";
+export const ADD_FILLING = "ADD_FILLING";
+export const REMOVE_FILLING = "REMOVE_FILLING";
+export const CALCULATE_PRICE = "CALCULATE_PRICE";
+export const MOVE_BURGER_ELEMENTS = "MOVE_BURGER_ELEMENTS";

@@ -1,178 +1,226 @@
-import React, {useCallback, useEffect, useMemo} from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import styles from "./burger-constructor.module.css";
-import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+	Button,
+	ConstructorElement,
+	CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import HiddenPoint from "../../images/hidden-point.svg"
-import {useDispatch, useSelector} from "react-redux";
-import {useDrop} from "react-dnd";
-import {ADD_BUN, ADD_FILLING, CALCULATE_PRICE, CLEAR_BURGER, MOVE_BURGER_ELEMENTS} from "../../services/actions/burger";
-import {CLOSE_ORDER_INFO, sendOrder} from "../../services/actions/order";
+import HiddenPoint from "../../images/hidden-point.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import {
+	ADD_BUN,
+	ADD_FILLING,
+	CALCULATE_PRICE,
+	CLEAR_BURGER,
+	MOVE_BURGER_ELEMENTS,
+} from "../../services/actions/burger";
+import { CLOSE_ORDER_INFO, sendOrder } from "../../services/actions/order";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import OrderDetails from "../order-details/order-details";
+import { v4 as uuidv4 } from "uuid";
 
 const BurgerConstructor = () => {
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-    const bun = useSelector(state =>
-        state.ingredients.ingredients.find(ingredient => ingredient._id === state.burger.bun))
+	const bun = useSelector((state) =>
+		state.ingredients.ingredients.find(
+			(ingredient) => ingredient._id === state.burger.bun,
+		),
+	);
 
-    const burgerFill = useSelector(state => state.burger.fillings)
+	const burgerFill = useSelector((state) => state.burger.fillings);
 
-    const allIngredients = useSelector(state => state.ingredients.ingredients)
+	const allIngredients = useSelector((state) => state.ingredients.ingredients);
 
-    const selectedBun = useSelector(state => state.burger.bun)
+	const selectedBun = useSelector((state) => state.burger.bun);
 
-    const price = useSelector(state => state.burger.price)
+	const price = useSelector((state) => state.burger.price);
 
-    const burgerIngredients = useMemo(() => {
-        return burgerFill.map(filling =>
-            allIngredients.find((item) => item._id === filling.id))
-    }, [allIngredients, burgerFill])
+	const burgerIngredients = useMemo(() => {
+		const data = new Map();
 
-    const handleCloseModal = () => {
-        dispatch({type: CLOSE_ORDER_INFO})
-    }
+		burgerFill.forEach((filling) => {
+			data[filling.uniq] = allIngredients.find(
+				(item) => item._id === filling.id,
+			);
+		});
 
-    const modalOrder = (<Modal header="" onClose={handleCloseModal}>
-        <OrderDetails/>
-    </Modal>)
+		return data;
+	}, [allIngredients, burgerFill]);
 
-    const modalVisible = useSelector(state => state.order.visible)
+	const handleCloseModal = () => {
+		dispatch({ type: CLOSE_ORDER_INFO });
+	};
 
-    const [{isOverTop}, refDropTop] = useDrop(() => ({
-        accept: "bun",
-        items: bun,
-        drop: (item) => {
-            dispatch({
-                type: ADD_BUN,
-                bun: item._id,
-            })
-        },
-        collect: monitor => ({
-            isOverTop: monitor.isOver(),
-        })
-    }))
+	const modalOrder = (
+		<Modal header="" onClose={handleCloseModal}>
+			<OrderDetails />
+		</Modal>
+	);
 
-    const [{isOverBottom}, refDropBottom] = useDrop(() => ({
-        accept: "bun",
-        drop: (item) => {
-            dispatch({
-                type: ADD_BUN,
-                bun: item._id,
-            })
-        },
-        collect: monitor => ({
-            isOverBottom: monitor.isOver(),
-        })
-    }))
+	const modalVisible = useSelector((state) => state.order.visible);
 
-    const [{isOver}, refDrop] = useDrop(() => ({
-        accept: ["main", "sauce"],
-        drop: (item) => {
-            dispatch({
-                type: ADD_FILLING,
-                id: item._id,
-            })
-        },
-        collect: monitor => ({
-            isOver: monitor.isOver(),
-        })
-    }))
+	const [{ isOverTop }, refDropTop] = useDrop(() => ({
+		accept: "bun",
+		items: bun,
+		drop: (item) => {
+			dispatch({
+				type: ADD_BUN,
+				bun: item._id,
+			});
+		},
+		collect: (monitor) => ({
+			isOverTop: monitor.isOver(),
+		}),
+	}));
 
-    useEffect(() => {
-        const bun = allIngredients.find((item => selectedBun === item._id))
+	const [{ isOverBottom }, refDropBottom] = useDrop(() => ({
+		accept: "bun",
+		drop: (item) => {
+			dispatch({
+				type: ADD_BUN,
+				bun: item._id,
+			});
+		},
+		collect: (monitor) => ({
+			isOverBottom: monitor.isOver(),
+		}),
+	}));
 
-        const fillingsPrice = burgerFill.map(filling => allIngredients.find((item) => item._id === filling.id))
-            .reduce((acc, item) => acc + item.price, 0)
+	const [{ isOver }, refDrop] = useDrop(() => ({
+		accept: ["main", "sauce"],
+		drop: (item) => {
+			dispatch({
+				type: ADD_FILLING,
+				id: item._id,
+				uniq: uuidv4(),
+			});
+		},
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+		}),
+	}));
 
-        let result = 0
+	useEffect(() => {
+		const bun = allIngredients.find((item) => selectedBun === item._id);
 
-        if (bun) {
-            result += bun.price * 2;
-        }
+		const fillingsPrice = burgerFill
+			.map((filling) => allIngredients.find((item) => item._id === filling.id))
+			.reduce((acc, item) => acc + item.price, 0);
 
-        if (fillingsPrice) {
-            result += fillingsPrice
-        }
+		let result = 0;
 
-        dispatch({type: CALCULATE_PRICE, price: result})
-    }, [selectedBun, burgerIngredients, allIngredients, dispatch, burgerFill])
+		if (bun) {
+			result += bun.price * 2;
+		}
 
+		if (fillingsPrice) {
+			result += fillingsPrice;
+		}
 
-    const handleOrder = () => {
-        dispatch(sendOrder({
-            ingredients: burgerFill.map(filling => filling.id),
-        }))
-    }
+		dispatch({ type: CALCULATE_PRICE, price: result });
+	}, [selectedBun, burgerIngredients, allIngredients, dispatch, burgerFill]);
 
-    const {isSuccess, orderNumber} = useSelector(state => ({
-        isSuccess: state.order.orderRequestSuccess,
-        orderNumber: state.order.order
-    }))
+	const handleOrder = () => {
+		dispatch(
+			sendOrder({
+				ingredients: burgerFill.map((filling) => filling.id),
+			}),
+		);
+	};
 
-    useEffect(() => {
-        if (isSuccess && orderNumber > 0) {
-            dispatch({type: CLEAR_BURGER})
-        }
-    }, [isSuccess, orderNumber, dispatch])
+	const isSuccess = useSelector((state) => state.order.orderRequestSuccess);
+	const orderNumber = useSelector((state) => state.order.order);
 
-    const moveElement = useCallback((dragIndex, hoverIndex) => {
-        dispatch({type: MOVE_BURGER_ELEMENTS, payload: {dragIndex, hoverIndex}})
-    }, [dispatch])
+	useEffect(() => {
+		if (isSuccess && orderNumber > 0) {
+			dispatch({ type: CLEAR_BURGER });
+		}
+	}, [isSuccess, orderNumber, dispatch]);
 
-    return (<section className={styles.sec}>
-        <div className={`${styles.row} pb-4`} ref={refDropTop} key={"top"}>
-            <div className={`${styles.points} pr-2`}/>
-            <ConstructorElement
-                type={'top'}
-                isLocked={true}
-                text={bun ? bun.name + " (верх)" : "Выберите булку"}
-                price={bun ? bun.price : null}
-                extraClass={isOverTop || isOverBottom ? styles.over : null}
-                thumbnail={bun ? bun.image : HiddenPoint}
-            />
-        </div>
+	const moveElement = useCallback(
+		(dragIndex, hoverIndex) => {
+			dispatch({
+				type: MOVE_BURGER_ELEMENTS,
+				payload: { dragIndex, hoverIndex },
+			});
+		},
+		[dispatch],
+	);
 
-        <div className={styles.lenta} key={"middle"} ref={refDrop}>
-            {burgerIngredients.length ? burgerIngredients.map((item, index) => (
-                <BurgerConstructorElement
-                    key={item.uniq}
-                    element={item}
-                    isOver={isOver}
-                    index={index}
-                    moveElement={moveElement}/>
-            )) : <div className={styles.row}>
-                <div className={`${styles.points} pl-2`}/>
-                <ConstructorElement
-                    text={"Добавьте ингредиент"}
-                    price={null}
-                    extraClass={isOver ? styles.over : null}
-                    thumbnail={HiddenPoint}
-                />
-            </div>}
-        </div>
-        <div className={`${styles.row} pt-4`} ref={refDropBottom} key={"bottom"}>
-            <div className={`${styles.points} pr-2`}/>
-            <ConstructorElement
-                type={'bottom'}
-                isLocked={true}
-                text={bun ? bun.name + " (низ)" : "Выберите булку"}
-                price={bun ? bun.price : null}
-                extraClass={isOverTop || isOverBottom ? styles.over : null}
-                thumbnail={bun ? bun.image : HiddenPoint}
-            />
-        </div>
-        <div className={`${styles.summary} pt-10`}>
-            <div className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}>{price}<CurrencyIcon
-                type="primary" className="p-2"/></div>
-            <div>
-                <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
-                    Оформить заказ
-                </Button>
-                {modalVisible && modalOrder}
-            </div>
-        </div>
-    </section>)
-}
+	return (
+		<section className={styles.sec}>
+			<div className={`${styles.row} pb-4`} ref={refDropTop} key={"top"}>
+				<div className={`${styles.points} pr-2`} />
+				<ConstructorElement
+					type={"top"}
+					isLocked={true}
+					text={bun ? bun.name + " (верх)" : "Выберите булку"}
+					price={bun ? bun.price : null}
+					extraClass={isOverTop || isOverBottom ? styles.over : null}
+					thumbnail={bun ? bun.image : HiddenPoint}
+				/>
+			</div>
+
+			<div className={styles.lenta} key="middle" ref={refDrop}>
+				{Object.entries(burgerIngredients).length > 0 ? (
+					Object.entries(burgerIngredients).map(([key, value], index) => {
+						return (
+							<BurgerConstructorElement
+								key={key}
+								element={value}
+								isOver={isOver}
+								index={index}
+								moveElement={moveElement}
+							/>
+						);
+					})
+				) : (
+					<div className={styles.row}>
+						<div className={`${styles.points} pl-2`} key={"add"} />
+						<ConstructorElement
+							text={"Добавьте ингредиент"}
+							price={null}
+							extraClass={isOver ? styles.over : null}
+							thumbnail={HiddenPoint}
+						/>
+					</div>
+				)}
+			</div>
+			<div className={`${styles.row} pt-4`} ref={refDropBottom} key={"bottom"}>
+				<div className={`${styles.points} pr-2`} />
+				<ConstructorElement
+					type={"bottom"}
+					isLocked={true}
+					text={bun ? bun.name + " (низ)" : "Выберите булку"}
+					price={bun ? bun.price : null}
+					extraClass={isOverTop || isOverBottom ? styles.over : null}
+					thumbnail={bun ? bun.image : HiddenPoint}
+				/>
+			</div>
+			<div className={`${styles.summary} pt-10`}>
+				<div
+					className={`${styles.one} text text_type_digits-medium pt-3 pl-5 pb-3`}
+				>
+					{price}
+					<CurrencyIcon type="primary" className="p-2" />
+				</div>
+				<div>
+					<Button
+						htmlType="button"
+						type="primary"
+						size="large"
+						onClick={handleOrder}
+					>
+						Оформить заказ
+					</Button>
+					{modalVisible && modalOrder}
+				</div>
+			</div>
+		</section>
+	);
+};
 
 export default BurgerConstructor;
