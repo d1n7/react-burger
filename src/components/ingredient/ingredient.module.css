@@ -1,10 +1,17 @@
 .price {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .block {
-    cursor: pointer;
-    overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
+
+.counter {
+	position: absolute;
+	float: right;
+	z-index: 5;
 }

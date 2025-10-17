@@ -1,47 +1,47 @@
 .construct {
-    display: flex;
-    margin-right: 4px;
-    cursor: pointer;
+	display: flex;
+	margin-right: 4px;
+	cursor: pointer;
 }
 
 .lenta {
-    display: flex;
-    margin-left: 4px;
-    cursor: pointer;
+	display: flex;
+	margin-left: 4px;
+	cursor: pointer;
 }
 
 .navbar {
-    background-color: #1C1C21;
-    height: 88px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 40px 40px 0 40px;
-    min-width: 1280px;
+	background-color: #1c1c21;
+	height: 88px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 40px 40px 0 40px;
+	min-width: 1280px;
 }
 
 .menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 1280px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 1280px;
 }
 
 .logo {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .navbarLeft {
-    flex-wrap: nowrap;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 426px;
+	flex-wrap: nowrap;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 426px;
 }
 
 .cabinet {
-    cursor: pointer;
-    width: 426px;
-    display: flex;
-    justify-content: flex-end;
+	cursor: pointer;
+	width: 426px;
+	display: flex;
+	justify-content: flex-end;
 }
