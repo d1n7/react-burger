@@ -7,15 +7,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/*#react-modals {*/
-/*    top: 100px;*/
-/*    left: calc(50% - 400px);*/
-/*    width: 720px;*/
-/*    z-index: 1000;*/
-/*    position: fixed;*/
-
-/*}*/
-
 @font-face {
     font-family: 'JetBrainsMono';
     font-style: normal;
