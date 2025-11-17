@@ -5,6 +5,7 @@ import {orderReducer} from "./reducers/order";
 import {infoReducer} from "./reducers/info";
 import {formForgotReducer} from "./reducers/forgot";
 import {passwordResetReducer} from "./reducers/reset";
+import {registerReducer} from "./reducers/register";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
     infoModal: infoReducer,
     forgotForm: formForgotReducer,
     resetForm: passwordResetReducer,
+    registerForm: registerReducer,
 });

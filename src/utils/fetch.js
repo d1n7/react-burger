@@ -1,3 +1,5 @@
+import {authLoginAddress} from "../services/api";
+
 export const genRequest = async (req) => {
     try {
         const response = await fetch(req);
@@ -18,3 +20,4 @@ const checkResponse = (response) => {
     }
     return response.json();
 };
+
