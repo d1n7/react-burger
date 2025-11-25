@@ -16,6 +16,9 @@ import {Page404} from "./components/pages/404/404";
 import {ForgotPassword} from "./components/pages/forgot-password/forgot-password";
 import {ResetPassword} from "./components/pages/reset-password/reset-password";
 import {Profile} from "./components/pages/profile/profile";
+import {AuthProvider} from "./utils/auth";
+import {ProfileUser} from "./components/pages/profile-user/profile-user";
+import {ProfileOrders} from "./components/pages/orders/profile-orders";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -30,20 +33,25 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <ErrorInform>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<App/>}/>
-                        <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                        <Route path="/register" element={<RegisterPage/>}/>
-                        <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                        <Route path="/reset-password" element={<ResetPassword/>}/>
-                        <Route path="*" element={<Page404/>}/>
-                    </Routes>
-                </BrowserRouter>
+                <AuthProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route index element={<App/>}/>
+                            <Route path="/profile" element={<Profile/>}>
+                                <Route index element={<ProfileUser/>}/>
+                                <Route path="orders" element={<ProfileOrders/>}/>
+                            </Route>
+                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/register" element={<RegisterPage/>}/>
+                            <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                            <Route path="/reset-password" element={<ResetPassword/>}/>
+                            <Route path="*" element={<Page404/>}/>
+                        </Routes>
+                    </BrowserRouter>
+                </AuthProvider>
             </ErrorInform>
         </Provider>
-    </React.StrictMode>,
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
