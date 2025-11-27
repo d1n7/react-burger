@@ -50,12 +50,10 @@ const BurgerConstructor = () => {
 		return data;
 	}, [allIngredients, burgerFill]);
 
-	const handleCloseModal = () => {
-		dispatch({ type: CLOSE_ORDER_INFO });
-	};
+
 
 	const modalOrder = (
-		<Modal header="" onClose={handleCloseModal}>
+		<Modal header="">
 			<OrderDetails />
 		</Modal>
 	);

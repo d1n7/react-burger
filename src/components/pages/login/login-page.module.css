@@ -1,0 +1,24 @@
+.box {
+    display: flex;
+    width: 480px;
+    flex-direction: column;
+    align-items: center;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.link {
+    text-decoration: none;
+    color: lightgray;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
