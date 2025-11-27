@@ -1,6 +1,7 @@
 import {
     PASSWORD_RESET_FAILED,
     PASSWORD_RESET_FORM_SET,
+    PASSWORD_RESET_RESET,
     PASSWORD_RESET_SUBMIT,
     PASSWORD_RESET_SUCCESS
 } from "../actions/reset";
@@ -48,6 +49,8 @@ export const passwordResetReducer = (state = initialState, action) => {
                 passwordResetFailed: true,
                 passwordResetSuccess: false,
             }
+        case PASSWORD_RESET_RESET:
+            return initialState
         default:
             return state;
     }

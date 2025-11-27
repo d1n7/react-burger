@@ -2,14 +2,15 @@ import React, {useEffect} from "react";
 import AppHeader from "../../app-header/app-header";
 import styles from "./reset-password.module.css";
 import {Button, Input, PasswordInput,} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setPasswordResetValue} from "../../../services/reducers/reset";
-import {resetPassword} from "../../../services/actions/reset";
+import {PASSWORD_RESET_RESET, resetPassword} from "../../../services/actions/reset";
 
 export const ResetPassword = () => {
     const {password, token} = useSelector(state => state.resetForm.form);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const passwordResetSuccess = useSelector(state => state.resetForm.passwordResetSuccess);
     const passwordResetRequest = useSelector(state => state.resetForm.passwordResetRequest);
@@ -25,7 +26,9 @@ export const ResetPassword = () => {
 
     useEffect(() => {
         if (passwordResetSuccess) {
-            console.log("passwordResetSuccess", passwordResetSuccess);
+            navigate("/login");
+
+            dispatch({type: PASSWORD_RESET_RESET})
         }
     }, [passwordResetRequest]);
 

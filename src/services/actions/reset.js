@@ -5,6 +5,7 @@ export const PASSWORD_RESET_SUBMIT = 'PASSWORD_RESET_SUBMIT';
 export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 export const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 export const PASSWORD_RESET_FORM_SET = 'PASSWORD_RESET_FORM_SET';
+export const PASSWORD_RESET_RESET = 'PASSWORD_RESET_RESET';
 
 export const resetPassword = () => (dispatch, getState) => {
     dispatch({type: PASSWORD_RESET_SUBMIT})

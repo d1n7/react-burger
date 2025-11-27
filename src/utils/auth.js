@@ -1,5 +1,5 @@
 import {createContext, useContext, useState} from "react";
-import {authLoginAddress, authLogoutAddress} from "../services/api";
+import {authLoginAddress, authLogoutAddress, authUserAddress} from "../services/api";
 import {genRequest} from "./fetch";
 
 
@@ -39,6 +39,28 @@ export const deleteToken = () => {
 export const useAuthProvide = () => {
     const [user, setUser] = useState(null);
 
+    const getUser = async () => {
+        const req = new Request(authUserAddress, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: 'Bearer ' + getCookieToken()
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+        });
+
+        genRequest(req).then((res) => {
+            console.log("res", res);
+            if (res.success) {
+                setUser({...res.user});
+            }
+        }).catch((err) => {
+            console.log("err", err);
+        })
+
+    };
+
     const login = async (form) => {
         const req = new Request(authLoginAddress, {
             method: "POST",
@@ -60,27 +82,16 @@ export const useAuthProvide = () => {
 
                     const expires = new Date();
                     expires.setTime(expires.getTime() + 20 * 60 * 1000);
-                    console.log(expires)
 
-                    const cookie = `${name}=${encodeURIComponent(authToken)};expires=${expires.toUTCString()}`;
-
-                    console.log("cookie", cookie);
-                    document.cookie = cookie
+                    document.cookie = `${name}=${encodeURIComponent(authToken)};expires=${expires.toUTCString()}`;
                 }
 
-                console.log("getCookieToken", getCookieToken(document.cookie))
-
-                console.log("res", res);
                 setUser({...res.user});
             }
         })
     }
 
     const logout = () => {
-        if (!user) {
-            console.log("user is null", user)
-        }
-
         const req = new Request(authLogoutAddress, {
             method: "POST",
             headers: {
@@ -93,6 +104,7 @@ export const useAuthProvide = () => {
             if (res.success) {
                 console.log(res);
                 setUser(null)
+                deleteToken()
             } else {
                 alert("выйти из системы не удалось");
             }
@@ -100,9 +112,9 @@ export const useAuthProvide = () => {
 
     }
 
-
     return {
         user,
+        getUser,
         login,
         logout
     }

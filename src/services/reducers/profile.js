@@ -1,8 +1,8 @@
 import {
     CHANGE_SECTION,
     PROFILE_FAIL,
-    PROFILE_FORM_SET,
-    PROFILE_REQUEST,
+    PROFILE_FORM_SET, PROFILE_LOGOUT,
+    PROFILE_REQUEST, PROFILE_RESET,
     PROFILE_SAVE_FAIL,
     PROFILE_SAVE_REQUEST,
     PROFILE_SAVE_SUCCESS,
@@ -26,18 +26,26 @@ const initialState = {
     profileSaveRequest: false,
 
     currentSection: PROFILE_SECTION_USER,
+
+    logout: false
 }
 
 export const setProfileForm = (field, value) => ({type: PROFILE_FORM_SET, field, value})
 
 export const profileReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PROFILE_LOGOUT:
+            return {
+                ...state,
+                logout: true,
+            };
+        case PROFILE_RESET:
+            return initialState;
         case CHANGE_SECTION:
             return {
                 ...state,
                 currentSection: action.payload,
             }
-
         case PROFILE_SAVE_SUCCESS:
             return {
                 ...state,

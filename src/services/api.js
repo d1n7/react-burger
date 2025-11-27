@@ -18,5 +18,5 @@ export const authRegisterAddress = new URL("/api/auth/register", baseApiURL).hre
 // POST - эндпоинт обновления токена.
 export const authTokenAddress = new URL("/api/auth/token", baseApiURL).href;
 
-// POST - эндпоинт обновления токена.
+// POST - эндпоинт для получения информации о пользователе.
 export const authUserAddress = new URL("/api/auth/user", baseApiURL).href;

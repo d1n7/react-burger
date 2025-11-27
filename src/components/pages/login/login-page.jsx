@@ -41,7 +41,7 @@ export const LoginPage = () => {
                     extraClass="ml-1 mt-6"
                 />
                 <PasswordInput
-                    type={"text"}
+                    type={"password"}
                     placeholder={"Пароль"}
                     onChange={onChange}
                     name="password"

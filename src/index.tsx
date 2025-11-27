@@ -19,6 +19,7 @@ import {Profile} from "./components/pages/profile/profile";
 import {AuthProvider} from "./utils/auth";
 import {ProfileUser} from "./components/pages/profile-user/profile-user";
 import {ProfileOrders} from "./components/pages/orders/profile-orders";
+import {ProtectedRouteElement} from "./components/protected-route-element/protected-route-element";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
@@ -37,11 +38,12 @@ root.render(
                     <BrowserRouter>
                         <Routes>
                             <Route index element={<App/>}/>
-                            <Route path="/profile" element={<Profile/>}>
+                            <Route path="/profile" element={<ProtectedRouteElement element={<Profile/>}/>}>
                                 <Route index element={<ProfileUser/>}/>
                                 <Route path="orders" element={<ProfileOrders/>}/>
                             </Route>
                             <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/ingredients/:id" element={<App/>}/>
                             <Route path="/register" element={<RegisterPage/>}/>
                             <Route path="/forgot-password" element={<ForgotPassword/>}/>
                             <Route path="/reset-password" element={<ResetPassword/>}/>

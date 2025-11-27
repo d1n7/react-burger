@@ -16,7 +16,7 @@ const sleep = (ms) => {
 export const getIngredients = () => (dispatch) => {
 	dispatch({ type: GET_ITEMS_REQUEST });
 
-	sleep(1000).then(() => {
+	sleep(10).then(() => {
 		try {
 			genRequest(ingredientsAddress)
 				.then((resp) => {

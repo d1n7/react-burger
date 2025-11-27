@@ -1,5 +1,3 @@
-import {authLoginAddress} from "../services/api";
-
 export const genRequest = async (req) => {
     try {
         const response = await fetch(req);
@@ -7,9 +5,9 @@ export const genRequest = async (req) => {
         return checkResponse(response);
     } catch (error) {
         console.error(error)
-    }
 
-    return undefined;
+        throw new Error("network response was not ok");
+    }
 };
 
 const checkResponse = (response) => {

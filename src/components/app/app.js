@@ -7,9 +7,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/actions/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
+import {useLocation} from "react-router-dom";
 
 function App() {
     const dispatch = useDispatch();
+    const location = useLocation();
+
     const {ingredientsRequestFailed} = useSelector(
         (state) => state.ingredients.ingredientsRequestFailed,
     );
@@ -24,6 +29,12 @@ function App() {
         }
     }, [ingredientsRequestFailed]);
 
+    if (location.pathname.includes("/ingredients/") && location.state === null) {
+        return (<Modal header={"Детали ингредиента"}>
+            <IngredientDetails/>
+        </Modal>)
+    }
+
     return (
         <>
             <AppHeader/>
@@ -33,6 +44,9 @@ function App() {
                     <BurgerConstructor/>
                 </DndProvider>
             </div>
+            <Modal header={"Детали ингредиента"}>
+                <IngredientDetails/>
+            </Modal>
         </>
     );
 }
